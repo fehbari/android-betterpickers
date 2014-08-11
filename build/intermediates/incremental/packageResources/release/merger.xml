@@ -1486,7 +1486,7 @@ on every last Tuesday
                 </color>
                 <color name="calendar_selected_date_text" >#ffd1d2d4
                 </color>
-                <color name="default_button_background_pressed_light" >#ff00ddff
+                <color name="default_button_background_pressed_light" >@color/red
                 </color>
                 <color name="default_divider_color_dark" >#28ffffff
                 </color>
@@ -1512,7 +1512,7 @@ on every last Tuesday
                 </color>
                 <color name="light_gray" >#404040
                 </color>
-                <color name="red" >#ff3333
+                <color name="red" >#fc614b
                 </color>
                 <color name="done_text_color_dark_disabled" >#888888
                 </color>
@@ -2395,11 +2395,11 @@ sans-serif-condensed
                 </string>
                 <string name="number_delete" >Esborrar
                 </string>
-                <string name="picker_cancel" >Cancellar
-                </string>
                 <string name="minutes_label" >m
                 </string>
                 <string name="timer_delete" >Esborrar
+                </string>
+                <string name="picker_cancel" >Cancellar
                 </string>
                 <string name="seconds_label_description" >segons
                 </string>
@@ -3342,8 +3342,6 @@ Co
 
                 <string name="minute_picker_description" >Круговой ползунок минут
                 </string>
-                <string name="searchview_description_clear" >Очистить запрос
-                </string>
 
                 <plurals name="weekly" >
                     <item quantity="one">
@@ -3365,6 +3363,8 @@ Co
                 </plurals>
 
                 <string name="time_picker_ampm_label" >--
+                </string>
+                <string name="searchview_description_clear" >Очистить запрос
                 </string>
                 <string name="year_picker_description" >Список годов
                 </string>

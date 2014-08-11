@@ -182,7 +182,7 @@
     <color name="default_button_background_dark">#00000000</color>
     <color name="default_button_background_light">#00000000</color>
     <color name="default_button_background_pressed_dark">#46c5c1ff</color>
-    <color name="default_button_background_pressed_light">#ff00ddff</color>
+    <color name="default_button_background_pressed_light">@color/red</color>
     <color name="default_divider_color_dark">#28ffffff</color>
     <color name="default_divider_color_light">#28000000</color>
     <color name="default_keyboard_indicator_color_dark">#ff33b5e5</color>
@@ -203,7 +203,7 @@
     <color name="numbers_text_color">#8c8c8c</color>
     <color name="recurrence_bubble_text_normal">#ff737373</color>
     <color name="recurrence_picker_background">#fff2f2f2</color>
-    <color name="red">#ff3333</color>
+    <color name="red">#fc614b</color>
     <color name="red_focused">#853333</color>
     <color name="transparent">#00000000</color>
     <color name="transparent_black">#7f000000</color>
@@ -380,7 +380,7 @@
     <string name="day_picker_description">Month grid of days</string>
     <string name="deleted_key">%1$s deleted</string>
     <string name="done_label">Done</string>
-    <string name="endByDate">; until <ns1:g id="date">%s</ns1:g></string>
+    <string name="endByDate">; until  <ns1:g id="date">%s</ns1:g></string>
     <string name="every_weekday">"Every weekday (Mon\u2013Fri)"</string>
     <string name="expiration_picker_seperator">/</string>
     <string name="hint_time_zone_search">Type country name</string>
@@ -419,7 +419,7 @@
     <string name="radial_numbers_typeface">sans-serif</string>
     <string name="recurrence_end_continously">Forever</string>
     <string name="recurrence_end_count_label">For a number of events</string>
-    <string name="recurrence_end_date">Until <ns1:g id="date">%s</ns1:g></string>
+    <string name="recurrence_end_date">Until  <ns1:g id="date">%s</ns1:g></string>
     <string name="recurrence_end_date_label">Until a date</string>
     <string name="recurrence_month_pattern_by_day">on the same day each month</string>
     <string name="sans_serif">sans-serif</string>

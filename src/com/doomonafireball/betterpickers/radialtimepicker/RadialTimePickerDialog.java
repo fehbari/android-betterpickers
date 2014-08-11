@@ -216,7 +216,7 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
         mSelectHours = res.getString(R.string.select_hours);
         mMinutePickerDescription = res.getString(R.string.minute_picker_description);
         mSelectMinutes = res.getString(R.string.select_minutes);
-        mSelectedColor = res.getColor(mThemeDark ? R.color.red : R.color.blue);
+        mSelectedColor = res.getColor(mThemeDark ? R.color.red : R.color.red);
         mUnselectedColor = res.getColor(mThemeDark ? R.color.white : R.color.numbers_text_color);
 
         mHourView = (TextView) view.findViewById(R.id.hours);
