@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateUtils;
@@ -174,6 +175,15 @@ public class CalendarDatePickerDialog extends DialogFragment implements
             mCalendar.set(Calendar.MONTH, savedInstanceState.getInt(KEY_SELECTED_MONTH));
             mCalendar.set(Calendar.DAY_OF_MONTH, savedInstanceState.getInt(KEY_SELECTED_DAY));
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Remove background dim effect.
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
     @Override

@@ -16,16 +16,11 @@
 
 package com.doomonafireball.betterpickers.radialtimepicker;
 
-import com.doomonafireball.betterpickers.HapticFeedbackController;
-import com.doomonafireball.betterpickers.R;
-import com.doomonafireball.betterpickers.Utils;
-import com.doomonafireball.betterpickers.radialtimepicker.RadialPickerLayout.OnValueSelectedListener;
-import com.nineoldandroids.animation.ObjectAnimator;
-
 import android.app.ActionBar.LayoutParams;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -37,8 +32,15 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.doomonafireball.betterpickers.HapticFeedbackController;
+import com.doomonafireball.betterpickers.R;
+import com.doomonafireball.betterpickers.Utils;
+import com.doomonafireball.betterpickers.radialtimepicker.RadialPickerLayout.OnValueSelectedListener;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -198,6 +200,15 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
             mInKbMode = savedInstanceState.getBoolean(KEY_IN_KB_MODE);
             mThemeDark = savedInstanceState.getBoolean(KEY_DARK_THEME);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Remove background dim effect.
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
     @Override
