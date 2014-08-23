@@ -209,6 +209,9 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
         // Remove background dim effect.
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
         getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+        // Change animation.
+        getDialog().getWindow().setWindowAnimations(R.style.dialog_animation_fade);
     }
 
     @Override
