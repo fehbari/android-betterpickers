@@ -120,8 +120,8 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
 
         /**
          * @param RadialTimePickerDialog The view associated with this listener.
-         * @param hourOfDay The hour that was set.
-         * @param minute The minute that was set.
+         * @param hourOfDay              The hour that was set.
+         * @param minute                 The minute that was set.
          */
         void onTimeSet(RadialTimePickerDialog dialog, int hourOfDay, int minute);
     }
@@ -132,14 +132,14 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
     }
 
     public static RadialTimePickerDialog newInstance(OnTimeSetListener callback,
-            int hourOfDay, int minute, boolean is24HourMode) {
+                                                     int hourOfDay, int minute, boolean is24HourMode) {
         RadialTimePickerDialog ret = new RadialTimePickerDialog();
         ret.initialize(callback, hourOfDay, minute, is24HourMode);
         return ret;
     }
 
     public void initialize(OnTimeSetListener callback,
-            int hourOfDay, int minute, boolean is24HourMode) {
+                           int hourOfDay, int minute, boolean is24HourMode) {
         mCallback = callback;
 
         mInitialHourOfDay = hourOfDay;
@@ -202,7 +202,7 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         if (getShowsDialog()) {
             getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
@@ -463,7 +463,7 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
 
     // Show either Hours or Minutes.
     private void setCurrentItemShowing(int index, boolean animateCircle, boolean delayLabelAnimate,
-            boolean announce) {
+                                       boolean announce) {
         mTimePicker.setCurrentItemShowing(index, animateCircle);
 
         TextView labelToAnimate;
@@ -576,7 +576,7 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
      * touch-event.
      *
      * @param keyCode The key to use as the first press. Keyboard mode will not be started if the key is not legal to
-     * start with. Or, pass in -1 to get into keyboard mode without a starting key.
+     *                start with. Or, pass in -1 to get into keyboard mode without a starting key.
      */
     private void tryStartingKbMode(int keyCode) {
         if (mTimePicker.trySettingInputEnabled(false) &&
@@ -681,7 +681,7 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
      * empty display (filled with the placeholder text), or update from the timepicker's values.
      *
      * @param allowEmptyDisplay if true, then if the typedTimes is empty, use the placeholder text. Otherwise, revert to
-     * the timepicker's values.
+     *                          the timepicker's values.
      */
     private void updateDisplay(boolean allowEmptyDisplay) {
         if (!allowEmptyDisplay && mTypedTimes.isEmpty()) {
@@ -746,8 +746,8 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
      * Get the currently-entered time, as integer values of the hours and minutes typed.
      *
      * @param enteredZeros A size-2 boolean array, which the caller should initialize, and which may then be used for
-     * the caller to know whether zeros had been explicitly entered as either hours of minutes. This is helpful for
-     * deciding whether to show the dashes, or actual 0's.
+     *                     the caller to know whether zeros had been explicitly entered as either hours of minutes. This is helpful for
+     *                     deciding whether to show the dashes, or actual 0's.
      * @return A size-3 int array. The first value will be the hours, the second value will be the minutes, and the
      * third will be either TimePickerDialog.AM or TimePickerDialog.PM.
      */

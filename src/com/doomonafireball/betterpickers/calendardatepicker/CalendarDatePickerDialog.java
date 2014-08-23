@@ -17,6 +17,7 @@
 package com.doomonafireball.betterpickers.calendardatepicker;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -80,6 +81,7 @@ public class CalendarDatePickerDialog extends DialogFragment implements
 
     private final Calendar mCalendar = Calendar.getInstance();
     private OnDateSetListener mCallBack;
+    private OnDialogDismissListener mDimissCallback;
     private HashSet<OnDateChangedListener> mListeners = new HashSet<OnDateChangedListener>();
 
     private AccessibleDateAnimator mAnimator;
@@ -525,4 +527,22 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     public void tryVibrate() {
         mHapticFeedbackController.tryVibrate();
     }
+
+    @Override
+    public void onDismiss(DialogInterface dialoginterface) {
+        super.onDismiss(dialoginterface);
+        if (mDimissCallback != null) {
+            mDimissCallback.onDialogDismiss(dialoginterface);
+        }
+    }
+
+    public void setOnDismissListener(OnDialogDismissListener ondialogdismisslistener) {
+        mDimissCallback = ondialogdismisslistener;
+    }
+
+    public static interface OnDialogDismissListener {
+
+        public abstract void onDialogDismiss(DialogInterface dialoginterface);
+    }
+
 }
