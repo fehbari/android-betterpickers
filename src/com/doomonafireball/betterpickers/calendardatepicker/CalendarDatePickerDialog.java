@@ -16,13 +16,8 @@
 
 package com.doomonafireball.betterpickers.calendardatepicker;
 
-import com.doomonafireball.betterpickers.HapticFeedbackController;
-import com.doomonafireball.betterpickers.R;
-import com.doomonafireball.betterpickers.Utils;
-import com.doomonafireball.betterpickers.calendardatepicker.MonthAdapter.CalendarDay;
-import com.nineoldandroids.animation.ObjectAnimator;
-
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -39,6 +34,12 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.doomonafireball.betterpickers.HapticFeedbackController;
+import com.doomonafireball.betterpickers.R;
+import com.doomonafireball.betterpickers.Utils;
+import com.doomonafireball.betterpickers.calendardatepicker.MonthAdapter.CalendarDay;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -91,6 +92,8 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     private DayPickerView mDayPickerView;
     private YearPickerView mYearPickerView;
     private Button mDoneButton;
+    private String mDoneText;
+    private String mHintText;
 
     private int mCurrentView = UNINITIALIZED;
 
@@ -108,6 +111,8 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     private String mYearPickerDescription;
     private String mSelectYear;
 
+    private boolean mThemeDark;
+
     /**
      * The callback used to indicate the user is done filling in the date.
      */
@@ -115,9 +120,9 @@ public class CalendarDatePickerDialog extends DialogFragment implements
 
         /**
          * @param CalendarDatePickerDialog The view associated with this listener.
-         * @param year The year that was set.
-         * @param monthOfYear The month that was set (0-11) for compatibility with {@link java.util.Calendar}.
-         * @param dayOfMonth The day of the month that was set.
+         * @param year                     The year that was set.
+         * @param monthOfYear              The month that was set (0-11) for compatibility with {@link java.util.Calendar}.
+         * @param dayOfMonth               The day of the month that was set.
          */
         void onDateSet(CalendarDatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth);
     }
@@ -136,14 +141,14 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     }
 
     /**
-     * @param callBack How the parent is notified that the date is set.
-     * @param year The initial year of the dialog.
+     * @param callBack    How the parent is notified that the date is set.
+     * @param year        The initial year of the dialog.
      * @param monthOfYear The initial month of the dialog.
-     * @param dayOfMonth The initial day of the dialog.
+     * @param dayOfMonth  The initial day of the dialog.
      */
     public static CalendarDatePickerDialog newInstance(OnDateSetListener callBack, int year,
-            int monthOfYear,
-            int dayOfMonth) {
+                                                       int monthOfYear,
+                                                       int dayOfMonth) {
         CalendarDatePickerDialog ret = new CalendarDatePickerDialog();
         ret.initialize(callBack, year, monthOfYear, dayOfMonth);
         return ret;
@@ -191,7 +196,7 @@ public class CalendarDatePickerDialog extends DialogFragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
@@ -254,6 +259,14 @@ public class CalendarDatePickerDialog extends DialogFragment implements
             }
         });
 
+        if (mDoneText != null) {
+            mDoneButton.setText(mDoneText);
+        }
+
+        if (mHintText != null) {
+            mDayOfWeekView.setText(mDoneText);
+        }
+
         updateDisplay(false);
         setCurrentView(currentView);
 
@@ -266,6 +279,9 @@ public class CalendarDatePickerDialog extends DialogFragment implements
         }
 
         mHapticFeedbackController = new HapticFeedbackController(activity);
+
+        setThemeColors(view, res);
+
         return view;
     }
 
@@ -279,6 +295,43 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     public void onPause() {
         super.onPause();
         mHapticFeedbackController.stop();
+    }
+
+    private void setThemeColors(View view, Resources res) {
+        // Set colors according to theme.
+        int white = res.getColor(R.color.white);
+        int circleBackground = res.getColor(R.color.circle_background);
+        int line = res.getColor(R.color.line_background);
+        ColorStateList doneTextColor = res.getColorStateList(R.color.done_text_color);
+        int doneBackground = R.drawable.done_background_color;
+        int lightTextColor = res.getColor(R.color.date_picker_text_normal);
+        ColorStateList lightSelector = res.getColorStateList(R.color.date_picker_selector);
+        ColorStateList lightYearSelector = res.getColorStateList(R.color.date_picker_year_selector);
+
+        int darkGray = res.getColor(R.color.dark_gray);
+        int lightGray = res.getColor(R.color.light_gray);
+        int darkLine = res.getColor(R.color.line_dark);
+        ColorStateList darkDoneTextColor = res.getColorStateList(R.color.done_text_color_dark);
+        int darkDoneBackground = R.drawable.done_background_color_dark;
+        ColorStateList darkSelector = res.getColorStateList(R.color.date_picker_selector_dark);
+        ColorStateList darkYearSelector = res.getColorStateList(R.color.date_picker_year_selector_dark);
+
+        mDayOfWeekView.setBackgroundColor(mThemeDark ? lightGray : circleBackground);
+        mDayOfWeekView.setTextColor(mThemeDark ? white : lightTextColor);
+        mSelectedDayTextView.setTextColor(mThemeDark ? darkSelector : lightSelector);
+        mSelectedMonthTextView.setTextColor(mThemeDark ? darkSelector : lightSelector);
+        mYearView.setTextColor(mThemeDark ? darkYearSelector : lightYearSelector);
+
+        mDayPickerView.setBackgroundColor(mThemeDark ? lightGray : circleBackground);
+        mYearPickerView.setBackgroundColor(mThemeDark ? lightGray : circleBackground);
+        view.findViewById(R.id.day_picker_selected_date_layout).setBackgroundColor(mThemeDark ? darkGray : white);
+        view.findViewById(R.id.animator).setBackgroundColor(mThemeDark ? lightGray : circleBackground);
+        view.findViewById(R.id.line).setBackgroundColor(mThemeDark ? darkLine : line);
+        mDoneButton.setTextColor(mThemeDark ? darkDoneTextColor : doneTextColor);
+        mDoneButton.setBackgroundResource(mThemeDark ? darkDoneBackground : doneBackground);
+
+        mDayPickerView.getAdapter().setThemeDark(mThemeDark);
+        mYearPickerView.setThemeDark(mThemeDark);
     }
 
     private void setCurrentView(final int viewIndex) {
@@ -426,6 +479,17 @@ public class CalendarDatePickerDialog extends DialogFragment implements
         }
     }
 
+    public void setDoneText(String text) {
+        mDoneText = text;
+    }
+
+    public void setHintText(String text) {
+        mHintText = text;
+    }
+
+    public void setThemeDark(boolean dark) {
+        mThemeDark = dark;
+    }
 
     @Override
     public CalendarDay getSelectedDay() {

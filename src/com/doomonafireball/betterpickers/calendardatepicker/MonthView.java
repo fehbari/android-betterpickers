@@ -16,10 +16,6 @@
 
 package com.doomonafireball.betterpickers.calendardatepicker;
 
-import com.doomonafireball.betterpickers.R;
-import com.doomonafireball.betterpickers.Utils;
-import com.doomonafireball.betterpickers.calendardatepicker.MonthAdapter.CalendarDay;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -40,6 +36,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import com.doomonafireball.betterpickers.R;
+import com.doomonafireball.betterpickers.Utils;
+import com.doomonafireball.betterpickers.calendardatepicker.MonthAdapter.CalendarDay;
 
 import java.security.InvalidParameterException;
 import java.util.Calendar;
@@ -216,9 +216,6 @@ public abstract class MonthView extends View {
         ViewCompat.setAccessibilityDelegate(this, mTouchHelper);
         ViewCompat.setImportantForAccessibility(this, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
         mLockAccessibilityDelegate = true;
-
-        // Sets up any standard paints that will be used
-        initView();
     }
 
     @Override
@@ -260,7 +257,7 @@ public abstract class MonthView extends View {
     /**
      * Sets up the text and style properties for painting. Override this if you want to use a different paint.
      */
-    protected void initView() {
+    public void init() {
         mMonthTitlePaint = new Paint();
         mMonthTitlePaint.setFakeBoldText(true);
         mMonthTitlePaint.setAntiAlias(true);
@@ -426,8 +423,9 @@ public abstract class MonthView extends View {
             int x = (2 * i + 1) * dayWidthHalf + mPadding;
             mDayLabelCalendar.set(Calendar.DAY_OF_WEEK, calendarDay);
             canvas.drawText(mDayLabelCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT,
-                    Locale.getDefault()).toUpperCase(Locale.getDefault()), x, y,
-                    mMonthDayLabelPaint);
+                            Locale.getDefault()).toUpperCase(Locale.getDefault()), x, y,
+                    mMonthDayLabelPaint
+            );
         }
     }
 
@@ -465,18 +463,18 @@ public abstract class MonthView extends View {
      * This method should draw the month day.  Implemented by sub-classes to allow customization.
      *
      * @param canvas The canvas to draw on
-     * @param year The year of this month day
-     * @param month The month of this month day
-     * @param day The day number of this month day
-     * @param x The default x position to draw the day number
-     * @param y The default y position to draw the day number
+     * @param year   The year of this month day
+     * @param month  The month of this month day
+     * @param day    The day number of this month day
+     * @param x      The default x position to draw the day number
+     * @param y      The default y position to draw the day number
      * @param startX The left boundary of the day number rect
-     * @param stopX The right boundary of the day number rect
+     * @param stopX  The right boundary of the day number rect
      * @param startY The top boundary of the day number rect
-     * @param stopY The bottom boundary of the day number rect
+     * @param stopY  The bottom boundary of the day number rect
      */
     public abstract void drawMonthDay(Canvas canvas, int year, int month, int day,
-            int x, int y, int startX, int stopX, int startY, int stopY);
+                                      int x, int y, int startX, int stopX, int startY, int stopY);
 
     private int findDayOffset() {
         return (mDayOfWeekStart < mWeekStart ? (mDayOfWeekStart + mNumDays) : mDayOfWeekStart)
@@ -606,7 +604,7 @@ public abstract class MonthView extends View {
 
         @Override
         protected void onPopulateNodeForVirtualView(int virtualViewId,
-                AccessibilityNodeInfoCompat node) {
+                                                    AccessibilityNodeInfoCompat node) {
             getItemBounds(virtualViewId, mTempRect);
 
             node.setContentDescription(getItemDescription(virtualViewId));
@@ -621,7 +619,7 @@ public abstract class MonthView extends View {
 
         @Override
         protected boolean onPerformActionForVirtualView(int virtualViewId, int action,
-                Bundle arguments) {
+                                                        Bundle arguments) {
             switch (action) {
                 case AccessibilityNodeInfo.ACTION_CLICK:
                     onDayClick(virtualViewId);
@@ -634,7 +632,7 @@ public abstract class MonthView extends View {
         /**
          * Calculates the bounding rectangle of a given time object.
          *
-         * @param day The day to calculate bounds for
+         * @param day  The day to calculate bounds for
          * @param rect The rectangle in which to store the bounds
          */
         private void getItemBounds(int day, Rect rect) {
@@ -678,4 +676,9 @@ public abstract class MonthView extends View {
 
         public void onDayClick(MonthView view, CalendarDay day);
     }
+
+    public void setDayTextColor(int color) {
+        mDayTextColor = color;
+    }
+
 }

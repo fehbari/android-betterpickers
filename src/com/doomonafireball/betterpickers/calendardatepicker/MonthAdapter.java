@@ -16,8 +16,6 @@
 
 package com.doomonafireball.betterpickers.calendardatepicker;
 
-import com.doomonafireball.betterpickers.calendardatepicker.MonthView.OnDayClickListener;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.format.Time;
@@ -25,6 +23,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
+
+import com.doomonafireball.betterpickers.R;
+import com.doomonafireball.betterpickers.calendardatepicker.MonthView.OnDayClickListener;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -43,6 +44,8 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
 
     protected static int WEEK_7_OVERHANG_HEIGHT = 7;
     protected static final int MONTHS_IN_YEAR = 12;
+
+    private boolean mThemeDark;
 
     /**
      * A convenience class to represent a specific date.
@@ -164,6 +167,15 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
             drawingParams = (HashMap<String, Integer>) v.getTag();
         } else {
             v = createMonthView(mContext);
+
+            // Set colors according to theme.
+            int white = mContext.getResources().getColor(R.color.white);
+            int lightTextColor = mContext.getResources().getColor(R.color.date_picker_text_normal);
+
+            v.setDayTextColor(mThemeDark ? white : lightTextColor);
+
+            v.init();
+
             // Set up the new view
             LayoutParams params = new LayoutParams(
                     LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -194,6 +206,7 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
         drawingParams.put(MonthView.VIEW_PARAMS_WEEK_START, mController.getFirstDayOfWeek());
         v.setMonthParams(drawingParams);
         v.invalidate();
+
         return v;
     }
 
@@ -221,4 +234,9 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
         mController.onDayOfMonthSelected(day.year, day.month, day.day);
         setSelectedDay(day);
     }
+
+    public void setThemeDark(boolean dark) {
+        mThemeDark = dark;
+    }
+
 }

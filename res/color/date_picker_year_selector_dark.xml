@@ -18,6 +18,6 @@
     <item android:state_pressed="true" android:color="@color/red"/>
     <item android:state_pressed="false" android:state_selected="true" android:color="@color/red"/>
     <item android:state_pressed="false" android:state_selected="false"
-        android:color="@color/date_picker_text_normal"/>
+        android:color="@color/white"/>
 
-</selector><!-- From: file:/Users/felipebari/Documents/Repositories/swipes-android/Swipes/libraries/android-betterpickers/res/color/date_picker_year_selector.xml -->
+</selector>

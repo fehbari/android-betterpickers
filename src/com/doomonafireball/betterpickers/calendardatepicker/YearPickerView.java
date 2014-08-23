@@ -16,10 +16,8 @@
 
 package com.doomonafireball.betterpickers.calendardatepicker;
 
-import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog.OnDateChangedListener;
-import com.doomonafireball.betterpickers.R;
-
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.StateListDrawable;
 import android.view.View;
@@ -30,6 +28,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.doomonafireball.betterpickers.R;
+import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog.OnDateChangedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,8 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
     private int mViewSize;
     private int mChildSize;
     private TextViewWithCircularIndicator mSelectedView;
+    private boolean mThemeDark;
+    private Context mContext;
 
     /**
      * @param context
@@ -67,6 +70,7 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
         setSelector(new StateListDrawable());
         setDividerHeight(0);
         onDateChanged();
+        mContext = context;
     }
 
     private void init(Context context) {
@@ -118,6 +122,13 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
             if (selected) {
                 mSelectedView = v;
             }
+
+            // Set colors according to theme.
+            ColorStateList lightSelector = mContext.getResources().getColorStateList(R.color.date_picker_year_selector);
+            ColorStateList darkSelector = mContext.getResources().getColorStateList(R.color.date_picker_year_selector_dark);
+
+            v.setTextColor(mThemeDark ? darkSelector : lightSelector);
+
             return v;
         }
     }
@@ -159,4 +170,9 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
             event.setToIndex(0);
         }
     }
+
+    public void setThemeDark(boolean dark) {
+        mThemeDark = dark;
+    }
+
 }

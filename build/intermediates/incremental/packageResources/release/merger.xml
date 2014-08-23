@@ -1025,6 +1025,23 @@ on every fourth Sunday
 on every last Sunday
                     </item>
                 </string-array>
+                <string-array name="repeat_by_nth_wed" >
+                    <item>
+on every first Wednesday
+                    </item>
+                    <item>
+on every second Wednesday
+                    </item>
+                    <item>
+on every third Wednesday
+                    </item>
+                    <item>
+on every fourth Wednesday
+                    </item>
+                    <item>
+on every last Wednesday
+                    </item>
+                </string-array>
                 <string-array name="timezone_rename_labels" >
 
                     <!-- Australia -->
@@ -1110,23 +1127,6 @@ on every last Sunday
 "Brasilia - Pará"
                     </item>
                 </string-array>
-                <string-array name="repeat_by_nth_wed" >
-                    <item>
-on every first Wednesday
-                    </item>
-                    <item>
-on every second Wednesday
-                    </item>
-                    <item>
-on every third Wednesday
-                    </item>
-                    <item>
-on every fourth Wednesday
-                    </item>
-                    <item>
-on every last Wednesday
-                    </item>
-                </string-array>
                 <string-array
                     name="backup_country_codes"
                     translatable="false" >
@@ -1175,6 +1175,23 @@ on every fourth Friday
                     </item>
                     <item>
 on every last Friday
+                    </item>
+                </string-array>
+                <string-array name="repeat_by_nth_sat" >
+                    <item>
+on every first Saturday
+                    </item>
+                    <item>
+on every second Saturday
+                    </item>
+                    <item>
+on every third Saturday
+                    </item>
+                    <item>
+on every fourth Saturday
+                    </item>
+                    <item>
+on every last Saturday
                     </item>
                 </string-array>
                 <string-array
@@ -1281,23 +1298,6 @@ on every last Friday
 "America/Belem"
                     </item>
                 </string-array>
-                <string-array name="repeat_by_nth_sat" >
-                    <item>
-on every first Saturday
-                    </item>
-                    <item>
-on every second Saturday
-                    </item>
-                    <item>
-on every third Saturday
-                    </item>
-                    <item>
-on every fourth Saturday
-                    </item>
-                    <item>
-on every last Saturday
-                    </item>
-                </string-array>
                 <string-array name="backup_country_names" >
                     <item>
 "Sint Maarten"
@@ -1326,23 +1326,6 @@ REPEAT MONTHLY
 REPEAT YEARLY
                     </item>
                 </string-array>
-                <string-array name="repeat_by_nth_thurs" >
-                    <item>
-on every first Thursday
-                    </item>
-                    <item>
-on every second Thursday
-                    </item>
-                    <item>
-on every third Thursday
-                    </item>
-                    <item>
-on every fourth Thursday
-                    </item>
-                    <item>
-on every last Thursday
-                    </item>
-                </string-array>
                 <string-array name="repeat_by_nth_tues" >
                     <item>
 on every first Tuesday
@@ -1358,6 +1341,23 @@ on every fourth Tuesday
                     </item>
                     <item>
 on every last Tuesday
+                    </item>
+                </string-array>
+                <string-array name="repeat_by_nth_thurs" >
+                    <item>
+on every first Thursday
+                    </item>
+                    <item>
+on every second Thursday
+                    </item>
+                    <item>
+on every third Thursday
+                    </item>
+                    <item>
+on every fourth Thursday
+                    </item>
+                    <item>
+on every last Thursday
                     </item>
                 </string-array>
             </file>
@@ -1462,23 +1462,23 @@ on every last Tuesday
                 qualifiers="" >
                 <color name="default_text_color_holo_light" >#ff000000
                 </color>
-                <color name="red_focused" >#853333
+                <color name="done_text_color_normal" >#000000
                 </color>
                 <color name="ampm_text_color" >#8c8c8c
                 </color>
-                <color name="done_text_color_normal" >#000000
+                <color name="red_focused" >#853333
                 </color>
                 <color name="default_button_background_pressed_dark" >#46c5c1ff
                 </color>
-                <color name="line_dark" >#808080
+                <color name="neutral_pressed" >#33999999
                 </color>
                 <color name="numbers_text_color" >#8c8c8c
                 </color>
-                <color name="neutral_pressed" >#33999999
-                </color>
-                <color name="recurrence_bubble_text_normal" >#ff737373
+                <color name="line_dark" >#808080
                 </color>
                 <color name="line_background" >#cccccc
+                </color>
+                <color name="recurrence_bubble_text_normal" >#ff737373
                 </color>
                 <color name="dark_gray" >#363636
                 </color>
@@ -1508,27 +1508,27 @@ on every last Tuesday
                 </color>
                 <color name="darker_blue" >#0099cc
                 </color>
-                <color name="done_disabled_dark" >#bfbfbf
+                <color name="red" >#fc614b
                 </color>
                 <color name="light_gray" >#404040
                 </color>
-                <color name="red" >#fc614b
+                <color name="done_disabled_dark" >#bfbfbf
                 </color>
                 <color name="done_text_color_dark_disabled" >#888888
                 </color>
                 <color name="default_text_color_holo_dark_disabled" >#ff4c4c4c
                 </color>
-                <color name="done_text_color_dark_normal" >#ffffff
+                <color name="circle_background" >#f2f2f2
                 </color>
                 <color name="default_button_background_dark" >#00000000
                 </color>
-                <color name="circle_background" >#f2f2f2
+                <color name="done_text_color_dark_normal" >#ffffff
                 </color>
                 <color name="default_button_background_light" >#00000000
                 </color>
-                <color name="date_picker_view_animator" >#f2f2f2
-                </color>
                 <color name="white" >#ffffff
+                </color>
+                <color name="date_picker_view_animator" >#f2f2f2
                 </color>
                 <color name="calendar_header" >#999999
                 </color>
@@ -1585,19 +1585,19 @@ on every last Tuesday
                 </dimen>
                 <dimen name="ampm_left_padding" >6dip
                 </dimen>
-                <dimen name="dialog_button_font_size" >14sp
-                </dimen>
                 <dimen name="minimum_margin_top_bottom" >24dip
+                </dimen>
+                <dimen name="dialog_button_font_size" >14sp
                 </dimen>
                 <dimen name="selected_date_day_size" >75dp
                 </dimen>
-                <dimen name="recurrence_picker_height" >340dp
-                </dimen>
                 <dimen name="date_viewpager_height" >275dip
                 </dimen>
-                <dimen name="recurrence_picker_width" >300dp
+                <dimen name="recurrence_picker_height" >340dp
                 </dimen>
                 <dimen name="medium_expiration_font_size" >40dp
+                </dimen>
+                <dimen name="recurrence_picker_width" >300dp
                 </dimen>
                 <dimen name="footer_height" >48dip
                 </dimen>
@@ -1687,9 +1687,9 @@ on every last Tuesday
 
                 <dimen name="selected_date_month_size" >30dp
                 </dimen>
-                <dimen name="label_font_size" >14sp
-                </dimen>
                 <dimen name="selected_calendar_layout_height" >155dp
+                </dimen>
+                <dimen name="label_font_size" >14sp
                 </dimen>
 
                 <item
@@ -1699,9 +1699,9 @@ on every last Tuesday
 0.82
                 </item>
 
-                <dimen name="ampm_label_size" >16sp
-                </dimen>
                 <dimen name="date_picker_component_width" >270dp
+                </dimen>
+                <dimen name="ampm_label_size" >16sp
                 </dimen>
                 <dimen name="month_label_size" >16sp
                 </dimen>
@@ -1762,6 +1762,8 @@ on every last Tuesday
 
                 <string name="hours_label" >h
                 </string>
+                <string name="time_picker_30_label" >:30
+                </string>
 
                 <plurals name="recurrence_interval_monthly" >
 
@@ -1783,17 +1785,15 @@ Every
                     </item>
                 </plurals>
 
-                <string name="time_picker_30_label" >:30
-                </string>
                 <string name="hours_label_description" >hours
                 </string>
                 <string name="minutes_label" >m
                 </string>
-                <string name="day_c" >DAY
+                <string name="item_is_selected" >%1$s selected
                 </string>
                 <string name="select_hours" >Select hours
                 </string>
-                <string name="item_is_selected" >%1$s selected
+                <string name="day_c" >DAY
                 </string>
                 <string name="recurrence_end_date" >Until 
 <ns1:g id="date" >
@@ -1801,9 +1801,9 @@ Every
                     </ns1:g></string>
                 <string name="recurrence_end_continously" >Forever
                 </string>
-                <string name="number_picker_seperator" >.
-                </string>
                 <string name="sans_serif" >sans-serif
+                </string>
+                <string name="number_picker_seperator" >.
                 </string>
                 <string name="deleted_key" >%1$s deleted
                 </string>
@@ -1917,6 +1917,8 @@ Every
                 </string>
                 <string name="seconds_label" >s
                 </string>
+                <string name="number_picker_minus_label" >—
+                </string>
 
                 <plurals name="recurrence_interval_yearly" >
 
@@ -1938,15 +1940,13 @@ Every
                     </item>
                 </plurals>
 
-                <string name="number_picker_minus_label" >—
-                </string>
                 <string name="max_error" >Please input a number less than or equal to %1$d
                 </string>
                 <string name="switch_on" >ON
                 </string>
-                <string name="minute_picker_description" >Minutes circular slider
-                </string>
                 <string name="select_day" >Select month and day
+                </string>
+                <string name="minute_picker_description" >Minutes circular slider
                 </string>
                 <string name="minutes_label_description" >minutes
                 </string>
@@ -1959,18 +1959,6 @@ Every
                 <string name="hms_picker_seconds_label" >S
                 </string>
 
-                <plurals name="daily" >
-                    <item quantity="one">
-Daily
-                    </item>
-                    <item quantity="other">
-Every 
-                        <ns1:g id="number" >
-%d
-                        </ns1:g>
- days
-                    </item>
-                </plurals>
                 <plurals name="recurrence_end_count" >
                     <item quantity="one">
 For 
@@ -1987,12 +1975,24 @@ For
  events
                     </item>
                 </plurals>
+                <plurals name="daily" >
+                    <item quantity="one">
+Daily
+                    </item>
+                    <item quantity="other">
+Every 
+                        <ns1:g id="number" >
+%d
+                        </ns1:g>
+ days
+                    </item>
+                </plurals>
 
                 <string name="picker_cancel" >Cancel
                 </string>
-                <string name="seconds_label_description" >seconds
-                </string>
                 <string name="time_placeholder" >--
+                </string>
+                <string name="seconds_label_description" >seconds
                 </string>
                 <string name="radial_numbers_typeface" >sans-serif
                 </string>
@@ -2193,12 +2193,11 @@ sans-serif
                     </item>
                 </style>
 
-                <style name="medium_light" >
+                <style
+                    name="medium_light_date"
+                    parent="@style/medium_bold" >
                     <item name="android:textSize">
-@dimen/medium_font_size
-                    </item>
-                    <item name="android:fontFamily">
-sans-serif-light
+@dimen/medium_date_font_size
                     </item>
                 </style>
 
@@ -2210,11 +2209,12 @@ sans-serif-light
                     </item>
                 </style>
 
-                <style
-                    name="medium_light_date"
-                    parent="@style/medium_bold" >
+                <style name="medium_light" >
                     <item name="android:textSize">
-@dimen/medium_date_font_size
+@dimen/medium_font_size
+                    </item>
+                    <item name="android:fontFamily">
+sans-serif-light
                     </item>
                 </style>
 
@@ -2260,14 +2260,6 @@ sans-serif-light
                     </item>
                 </style>
 
-                <style
-                    name="medium_light_hms"
-                    parent="medium_light" >
-                    <item name="android:textSize">
-@dimen/medium_font_size_hms
-                    </item>
-                </style>
-
                 <style name="dialog_button" >
                     <item name="android:textSize">
 @dimen/dialog_button_font_size
@@ -2277,6 +2269,14 @@ sans-serif
                     </item>
                     <item name="android:minHeight">
 48dp
+                    </item>
+                </style>
+
+                <style
+                    name="medium_light_hms"
+                    parent="medium_light" >
+                    <item name="android:textSize">
+@dimen/medium_font_size_hms
                     </item>
                 </style>
 
@@ -2395,21 +2395,21 @@ sans-serif-condensed
                 </string>
                 <string name="number_delete" >Esborrar
                 </string>
-                <string name="minutes_label" >m
-                </string>
                 <string name="timer_delete" >Esborrar
                 </string>
                 <string name="picker_cancel" >Cancellar
+                </string>
+                <string name="minutes_label" >m
                 </string>
                 <string name="seconds_label_description" >segons
                 </string>
                 <string name="hms_picker_minutes_label" >M
                 </string>
-                <string name="number_picker_plus_minus" >+/-
+                <string name="hours_label_description" >hores
                 </string>
                 <string name="number_picker_minus_label" >—
                 </string>
-                <string name="hours_label_description" >hores
+                <string name="number_picker_plus_minus" >+/-
                 </string>
                 <string name="time_picker_ampm_label" >--
                 </string>
@@ -2453,9 +2453,9 @@ sans-serif-condensed
                 </string>
                 <string name="minutes_label" >m
                 </string>
-                <string name="hms_picker_seconds_label" >S
-                </string>
                 <string name="seconds_label_description" >segundos
+                </string>
+                <string name="hms_picker_seconds_label" >S
                 </string>
             </file>
             <file
@@ -2523,13 +2523,13 @@ Toutes les
                 </string>
                 <string name="save_label" >Fini
                 </string>
-                <string name="day_picker_description" >Grille mensuelle
-                </string>
                 <string name="year_picker_description" >Liste des années
                 </string>
-                <string name="month_c" >MOIS
+                <string name="day_picker_description" >Grille mensuelle
                 </string>
                 <string name="seconds_label_description" >secondes
+                </string>
+                <string name="month_c" >MOIS
                 </string>
                 <string name="day_of_week_label_typeface" >sans-serif
                 </string>
@@ -2658,6 +2658,8 @@ Toutes les
                 </string>
                 <string name="yearly_plain" >Annuel
                 </string>
+                <string name="select_day" >Choisir le mois et le jour
+                </string>
 
                 <plurals name="recurrence_interval_yearly" >
 
@@ -2679,15 +2681,13 @@ Toutes les
                     </item>
                 </plurals>
 
-                <string name="select_day" >Choisir le mois et le jour
-                </string>
                 <string name="picker_set" >OK
                 </string>
                 <string name="number_delete" >Effacer
                 </string>
-                <string name="hint_time_zone_search" >Nom du pays
-                </string>
                 <string name="year_c" >ANNÉE
+                </string>
+                <string name="hint_time_zone_search" >Nom du pays
                 </string>
                 <string name="timer_delete" >Effacer
                 </string>
@@ -2699,9 +2699,9 @@ Toutes les
                 </string>
                 <string name="palestine_display_name" >Palestine
                 </string>
-                <string name="select_hours" >Choisir les heures
-                </string>
                 <string name="select_year" >Choisir l\'année
+                </string>
+                <string name="select_hours" >Choisir les heures
                 </string>
                 <string name="deleted_key" >%1$s effacé
                 </string>
@@ -2709,9 +2709,9 @@ Toutes les
                 </string>
                 <string name="recurrence_month_pattern_by_day" >le même jour tous les mois
                 </string>
-                <string name="no_results_found" >Aucun résultat trouvé
-                </string>
                 <string name="max_error" >S\'il vous plaît, veuillez indiquer un nombre plus petit ou égal à %1$d
+                </string>
+                <string name="no_results_found" >Aucun résultat trouvé
                 </string>
                 <string name="recurrence_end_count_label" >Pour un nombre d\événements
                 </string>
@@ -2734,23 +2734,23 @@ Tous les
                 qualifiers="it" >
                 <string name="minutes_label_description" >minuti
                 </string>
-                <string name="day_of_week_label_typeface" >sans-serif
+                <string name="year_picker_description" >Lista Anno
                 </string>
                 <string name="select_year" >Seleziona Anno
                 </string>
-                <string name="year_picker_description" >Lista Anno
-                </string>
-                <string name="time_separator" >:
+                <string name="day_of_week_label_typeface" >sans-serif
                 </string>
                 <string name="month_c" >MESE
                 </string>
-                <string name="sans_serif" >sans-serif
+                <string name="time_separator" >:
                 </string>
                 <string name="select_day" >Seleziona Mese e Giorno
                 </string>
-                <string name="number_delete" >Elimina
+                <string name="sans_serif" >sans-serif
                 </string>
                 <string name="hms_picker_hours_label" >H
+                </string>
+                <string name="number_delete" >Elimina
                 </string>
                 <string name="select_hours" >Seleziona le Ore
                 </string>
@@ -2782,9 +2782,9 @@ Tous les
                 </string>
                 <string name="minutes_label" >m
                 </string>
-                <string name="hour_picker_description" >Cursore circolare delle Ore
-                </string>
                 <string name="expiration_picker_seperator" >/
+                </string>
+                <string name="hour_picker_description" >Cursore circolare delle Ore
                 </string>
                 <string name="max_error" >Inserisci un numero uguale o minore di %1$d
                 </string>
@@ -2796,23 +2796,23 @@ Tous les
                 </string>
                 <string name="hours_label_description" >ore
                 </string>
-                <string name="done_label" >Fine
-                </string>
                 <string name="seconds_label" >s
+                </string>
+                <string name="done_label" >Fine
                 </string>
                 <string name="time_picker_time_seperator" >:
                 </string>
-                <string name="seconds_label_description" >secondi
-                </string>
                 <string name="min_error" >Inserisci un numero uguale o maggiore di %1$d
+                </string>
+                <string name="seconds_label_description" >secondi
                 </string>
                 <string name="time_picker_30_label" >:30
                 </string>
-                <string name="item_is_selected" >%1$s selezionato
+                <string name="hms_picker_minutes_label" >M
                 </string>
                 <string name="time_picker_00_label" >:00
                 </string>
-                <string name="hms_picker_minutes_label" >M
+                <string name="item_is_selected" >%1$s selezionato
                 </string>
                 <string name="day_c" >GIORNO
                 </string>
@@ -2822,13 +2822,13 @@ Tous les
             <file
                 path="/Users/felipebari/Documents/Repositories/swipes-android/Swipes/libraries/android-betterpickers/res/values-land/dimens.xml"
                 qualifiers="land" >
-                <dimen name="selected_date_day_size" >100dp
-                </dimen>
                 <dimen name="dialog_height" >200dip
                 </dimen>
-                <dimen name="left_side_width" >250dip
+                <dimen name="selected_date_day_size" >100dp
                 </dimen>
                 <dimen name="date_viewpager_height" >189dip
+                </dimen>
+                <dimen name="left_side_width" >250dip
                 </dimen>
                 <dimen name="recurrence_picker_height" >281dp
                 </dimen>
@@ -2870,15 +2870,15 @@ Tous les
                 </dimen>
                 <dimen name="day_number_select_circle_radius" >16dp
                 </dimen>
-                <dimen name="year_label_text_size" >22dp
-                </dimen>
                 <dimen name="date_picker_view_animator_height" >270dp
                 </dimen>
-                <dimen name="year_label_height" >64dp
+                <dimen name="year_label_text_size" >22dp
+                </dimen>
+                <dimen name="selected_date_month_size" >24dp
                 </dimen>
                 <dimen name="month_select_circle_radius" >45dp
                 </dimen>
-                <dimen name="selected_date_month_size" >24dp
+                <dimen name="year_label_height" >64dp
                 </dimen>
                 <dimen name="day_number_size" >16sp
                 </dimen>
@@ -2934,9 +2934,11 @@ Co
                 </string>
                 <string name="select_day" >Wybierz miesiąc i dzień
                 </string>
+                <string name="switch_on" >WŁ
+                </string>
                 <string name="searchview_description_clear" >Wyczyść zapytanie
                 </string>
-                <string name="switch_on" >WŁ
+                <string name="hours_label" >h
                 </string>
 
                 <plurals name="weekly" >
@@ -2958,8 +2960,6 @@ Co
                     </item>
                 </plurals>
 
-                <string name="hours_label" >h
-                </string>
                 <string name="recurrence_end_date_label" >Do daty
                 </string>
                 <string name="timer_delete" >Usuń
@@ -2985,9 +2985,9 @@ Co
                     </item>
                 </plurals>
 
-                <string name="item_is_selected" >%1$s został wybrany
-                </string>
                 <string name="radial_numbers_typeface" >sans-serif
+                </string>
+                <string name="item_is_selected" >%1$s został wybrany
                 </string>
                 <string name="year_picker_description" >Lista lat
                 </string>
@@ -3079,19 +3079,19 @@ Co
                 </string>
                 <string name="select_hours" >Wybierz godziny
                 </string>
-                <string name="picker_cancel" >Anuluj
-                </string>
                 <string name="hours_label_description" >godzin
                 </string>
-                <string name="yearly_plain" >Rocznie
+                <string name="picker_cancel" >Anuluj
                 </string>
                 <string name="recurrence_end_continously" >Bez końca
                 </string>
+                <string name="yearly_plain" >Rocznie
+                </string>
                 <string name="number_picker_minus_label" >—
                 </string>
-                <string name="minutes_label" >m
-                </string>
                 <string name="select_year" >Wybierz rok
+                </string>
+                <string name="minutes_label" >m
                 </string>
                 <string name="recurrence_end_count_label" >Do wybranej ilości wystąpień
                 </string>
@@ -3116,12 +3116,12 @@ Co
                     </item>
                 </plurals>
 
+                <string name="number_picker_plus_minus" >+/-
+                </string>
                 <string name="endByDate" >; until 
 <ns1:g id="date" >
 %s
                     </ns1:g></string>
-                <string name="number_picker_plus_minus" >+/-
-                </string>
                 <string name="deleted_key" >%1$s został usunięty
                 </string>
                 <string name="hms_picker_seconds_label" >S
@@ -3222,17 +3222,17 @@ Co
 
                 <string name="month_c" >МЕСЯЦ
                 </string>
-                <string name="recurrence_end_count_label" >Для ряда событий
-                </string>
                 <string name="recurrence_month_pattern_by_day" >тот же день каждый месяц
+                </string>
+                <string name="recurrence_end_count_label" >Для ряда событий
                 </string>
                 <string name="timer_delete" >Удалить
                 </string>
                 <string name="deleted_key" >%1$s удален
                 </string>
-                <string name="palestine_display_name" >Палестина
-                </string>
                 <string name="monthly" >Ежемесячно
+                </string>
+                <string name="palestine_display_name" >Палестина
                 </string>
                 <string name="hours_label_description" >часы
                 </string>
@@ -3242,9 +3242,9 @@ Co
                 </string>
                 <string name="hours_label" >ч
                 </string>
-                <string name="day_c" >ДЕНЬ
-                </string>
                 <string name="select_day" >Выберите месяц и день
+                </string>
+                <string name="day_c" >ДЕНЬ
                 </string>
                 <string name="time_separator" >:
                 </string>
@@ -3342,6 +3342,10 @@ Co
 
                 <string name="minute_picker_description" >Круговой ползунок минут
                 </string>
+                <string name="time_picker_ampm_label" >--
+                </string>
+                <string name="searchview_description_clear" >Очистить запрос
+                </string>
 
                 <plurals name="weekly" >
                     <item quantity="one">
@@ -3362,13 +3366,9 @@ Co
                     </item>
                 </plurals>
 
-                <string name="time_picker_ampm_label" >--
-                </string>
-                <string name="searchview_description_clear" >Очистить запрос
+                <string name="time_placeholder" >--
                 </string>
                 <string name="year_picker_description" >Список годов
-                </string>
-                <string name="time_placeholder" >--
                 </string>
                 <string name="radial_numbers_typeface" >sans-serif
                 </string>
@@ -3376,9 +3376,9 @@ Co
                 </string>
                 <string name="picker_cancel" >Отмена
                 </string>
-                <string name="done_label" >Готово
-                </string>
                 <string name="recurrence_end_continously" >Навсегда
+                </string>
+                <string name="done_label" >Готово
                 </string>
                 <string name="picker_set" >ОК
                 </string>
@@ -3409,9 +3409,9 @@ Co
                     </item>
                 </plurals>
 
-                <string name="minutes_label" >м
-                </string>
                 <string name="acessibility_recurrence_choose_end_date_description" >изменить конечную дату
+                </string>
+                <string name="minutes_label" >м
                 </string>
 
                 <plurals name="daily" >
@@ -3427,9 +3427,9 @@ Co
                     </item>
                 </plurals>
 
-                <string name="min_error" >Пожалуйста, введите число больше или равно чем %1$d
-                </string>
                 <string name="number_picker_seperator" >.
+                </string>
+                <string name="min_error" >Пожалуйста, введите число больше или равно чем %1$d
                 </string>
                 <string name="sans_serif" >sans-serif
                 </string>
@@ -3447,13 +3447,13 @@ Co
                 </dimen>
                 <dimen name="selected_date_year_size" >45dp
                 </dimen>
-                <dimen name="date_picker_view_animator_height" >400dp
-                </dimen>
                 <dimen name="medium_font_size_hms" >100dp
                 </dimen>
-                <dimen name="picker_dimen" >400dip
+                <dimen name="date_picker_view_animator_height" >400dp
                 </dimen>
                 <dimen name="medium_date_font_size" >80dp
+                </dimen>
+                <dimen name="picker_dimen" >400dip
                 </dimen>
                 <dimen name="day_number_select_circle_radius" >24dp
                 </dimen>
@@ -3493,17 +3493,17 @@ Co
                 </dimen>
                 <dimen name="year_label_text_size" >33dp
                 </dimen>
-                <dimen name="recurrence_picker_width" >480dp
-                </dimen>
                 <dimen name="medium_font_padding" >24dp
+                </dimen>
+                <dimen name="recurrence_picker_width" >480dp
                 </dimen>
                 <dimen name="date_picker_header_height" >45dp
                 </dimen>
                 <dimen name="year_label_height" >96dp
                 </dimen>
-                <dimen name="selected_calendar_layout_height" >360dp
-                </dimen>
                 <dimen name="month_select_circle_radius" >36dp
+                </dimen>
+                <dimen name="selected_calendar_layout_height" >360dp
                 </dimen>
                 <dimen name="month_list_item_header_height" >75dp
                 </dimen>
@@ -3517,15 +3517,15 @@ Co
                 qualifiers="sw600dp-land-v13" >
                 <dimen name="time_label_size" >64sp
                 </dimen>
-                <dimen name="ampm_left_padding" >7dip
-                </dimen>
                 <dimen name="date_picker_header_height" >45dp
+                </dimen>
+                <dimen name="ampm_left_padding" >7dip
                 </dimen>
                 <dimen name="ampm_label_size" >21sp
                 </dimen>
-                <dimen name="recurrence_picker_width" >600dp
-                </dimen>
                 <dimen name="left_side_width" >315dip
+                </dimen>
+                <dimen name="recurrence_picker_width" >600dp
                 </dimen>
                 <dimen name="recurrence_picker_height" >300dp
                 </dimen>
@@ -3550,6 +3550,16 @@ Co
                 <dimen name="selected_date_year_size" >30dp
                 </dimen>
             </file>
+            <file
+                name="date_picker_year_selector_dark"
+                path="/Users/felipebari/Documents/Repositories/swipes-android/Swipes/libraries/android-betterpickers/res/color/date_picker_year_selector_dark.xml"
+                qualifiers=""
+                type="color" />
+            <file
+                name="date_picker_selector_dark"
+                path="/Users/felipebari/Documents/Repositories/swipes-android/Swipes/libraries/android-betterpickers/res/color/date_picker_selector_dark.xml"
+                qualifiers=""
+                type="color" />
         </source>
         <source path="/Users/felipebari/Documents/Repositories/swipes-android/Swipes/libraries/android-betterpickers/build/generated/res/rs/release" />
         <source path="/Users/felipebari/Documents/Repositories/swipes-android/Swipes/libraries/android-betterpickers/build/generated/res/generated/release" />

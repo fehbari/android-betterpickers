@@ -498,4 +498,8 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
         mPerformingScroll = true;
         return true;
     }
+
+    public MonthAdapter getAdapter() {
+        return mAdapter;
+    }
 }
