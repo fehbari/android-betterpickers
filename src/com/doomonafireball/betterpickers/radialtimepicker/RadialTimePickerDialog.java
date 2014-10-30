@@ -180,6 +180,10 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
         mDoneText = text;
     }
 
+    public void set24HourMode(boolean is24HourMode) {
+        mIs24HourMode = is24HourMode;
+    }
+
     @Override
     public void onDismiss(DialogInterface dialoginterface) {
         super.onDismiss(dialoginterface);
