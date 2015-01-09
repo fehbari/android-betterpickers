@@ -35,10 +35,10 @@
     <color name="calendar_selected_date_text">#ffd1d2d4</color>
 
     <!-- Colors for red theme -->
-    <color name="red">#fc614b</color>
+    <color name="red">#FC5830</color>
     <color name="red_focused">#853333</color>
     <color name="light_gray">#24282e</color>
-    <color name="dark_gray">#1b1e23</color>
+    <color name="dark_gray">#1A1D22</color>
     <color name="line_dark">#4e5156</color>
     <color name="done_text_color_dark_normal">#ffffff</color>
     <color name="done_text_color_dark_disabled">#888888</color>
