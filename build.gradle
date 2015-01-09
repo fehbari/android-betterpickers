@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.android.tools.build:gradle:1.0.0'
     }
 }
 
@@ -33,6 +33,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:support-v13:19.0.+'
+    compile 'com.android.support:support-v13:21.0.3'
     compile 'com.nineoldandroids:library:2.4.0'
 }
