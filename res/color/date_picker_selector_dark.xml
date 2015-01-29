@@ -18,6 +18,6 @@
     <item android:state_pressed="true" android:color="@color/red"/>
     <item android:state_pressed="false" android:state_selected="true" android:color="@color/red"/>
     <item android:state_pressed="false" android:state_selected="false"
-        android:color="@color/white"/>
+        android:color="@color/date_picker_text_dark"/>
 
 </selector>

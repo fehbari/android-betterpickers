@@ -15,34 +15,41 @@
     <color name="default_button_background_pressed_light">@color/red</color>
     <color name="default_keyboard_indicator_color_light">#ff00ddff</color>
 
-    <color name="white">#ffffff</color>
-    <color name="circle_background">#f2f2f2</color>
-    <color name="line_background">#cccccc</color>
+    <color name="background">#F8F8F9</color>
+    <color name="circle_background">#FFFFFF</color>
+    <color name="line_background">#E0E0E0</color>
     <color name="ampm_text_color">#8c8c8c</color>
-    <color name="done_text_color_normal">#000000</color>
-    <color name="done_text_color_disabled">#cccccc</color>
-    <color name="numbers_text_color">#8c8c8c</color>
+    <color name="done_text_color_normal">@color/text_primary_light</color>
+    <color name="text_primary_light">#1F1F1F</color>
+    <color name="text_secondary_light">#676767</color>
+    <color name="date_picker_text_normal">@color/text_secondary_light</color>
+    <color name="numbers_text_color">@color/text_secondary_light</color>
+    <item name="light_highlight" type="color">#66999999</item>
 
     <color name="transparent_black">#7f000000</color>
     <color name="blue">#33b5e5</color>
     <color name="blue_focused">#c1e8f7</color>
     <color name="neutral_pressed">#33999999</color>
     <color name="darker_blue">#0099cc</color>
-    <color name="date_picker_text_normal">#ff999999</color>
+
 
     <color name="calendar_header">#999999</color>
     <color name="date_picker_view_animator">#f2f2f2</color>
     <color name="calendar_selected_date_text">#ffd1d2d4</color>
+    <color name="selected_day_text_color">#ffffff</color>
 
     <!-- Colors for red theme -->
     <color name="red">#FC5830</color>
-    <color name="red_focused">#853333</color>
-    <color name="light_gray">#24282e</color>
-    <color name="dark_gray">#1A1D22</color>
-    <color name="line_dark">#4e5156</color>
-    <color name="done_text_color_dark_normal">#ffffff</color>
-    <color name="done_text_color_dark_disabled">#888888</color>
+    <color name="background_dark">#24282e</color>
+    <color name="circle_background_dark">#1A1D22</color>
+    <color name="line_dark">#36383D</color>
+    <color name="done_text_color_dark_normal">@color/text_primary_dark</color>
     <color name="done_disabled_dark">#bfbfbf</color>
+    <color name="text_primary_dark">#FFFFFF</color>
+    <color name="text_secondary_dark">#BBBCBD</color>
+    <color name="date_picker_text_dark">@color/text_secondary_dark</color>
+    <color name="numbers_text_color_dark">@color/text_secondary_dark</color>
+    <item name="dark_highlight" type="color">#40CCCCCC</item>
 
     <color name="recurrence_picker_background">#fff2f2f2</color>
     <color name="recurrence_bubble_text_normal">#ff737373</color>

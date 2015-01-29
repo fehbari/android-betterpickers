@@ -74,7 +74,7 @@
 
     <style name="aosp_time_label">
         <item name="android:textSize">@dimen/time_label_size</item>
-        <item name="android:textColor">@color/numbers_text_color</item>
+        <item name="android:textColor">@color/text_secondary_light</item>
     </style>
 
     <style name="aosp_ampm_label">
@@ -99,7 +99,7 @@
 
     <style name="TextAppearance.Holo.Light.Widget.Switch" parent="android:TextAppearance.Small">
         <!-- Switch thumb asset presents a dark background. -->
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="TextAppearance.RecurrencePickerStyle" parent="@android:style/TextAppearance">

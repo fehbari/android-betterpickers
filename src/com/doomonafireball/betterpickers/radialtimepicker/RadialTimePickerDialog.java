@@ -18,9 +18,9 @@ package com.doomonafireball.betterpickers.radialtimepicker;
 
 import android.app.ActionBar.LayoutParams;
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -32,7 +32,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -78,6 +78,7 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
 
     private HapticFeedbackController mHapticFeedbackController;
 
+    private LinearLayout mContainer;
     private TextView mDoneButton;
     private TextView mHourView;
     private TextView mHourSpaceView;
@@ -210,32 +211,40 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
     public void onStart() {
         super.onStart();
 
-        // Remove background dim effect.
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-
-        // Change animation.
+        getDialog().getWindow().getAttributes().dimAmount = mThemeDark ? 0.4f : 0.2f;
         getDialog().getWindow().setWindowAnimations(R.style.dialog_animation_fade);
+
+        int background = mThemeDark ? R.drawable.dialog_dark : R.drawable.dialog_light;
+        getDialog().getWindow().setBackgroundDrawableResource(background);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Round initial minutes.
+        int mod = mInitialMinute % 5;
+        if (mod != 0) {
+            int add = 5 - mod;
+            mInitialMinute += add;
+        }
+
         if (getShowsDialog()) {
             getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
 
         View view = inflater.inflate(R.layout.radial_time_picker_dialog, null);
+
         KeyboardListener keyboardListener = new KeyboardListener();
-        view.findViewById(R.id.time_picker_dialog).setOnKeyListener(keyboardListener);
+        mContainer = (LinearLayout) view.findViewById(R.id.time_picker_dialog);
+        mContainer.setOnKeyListener(keyboardListener);
 
         Resources res = getResources();
         mHourPickerDescription = res.getString(R.string.hour_picker_description);
         mSelectHours = res.getString(R.string.select_hours);
         mMinutePickerDescription = res.getString(R.string.minute_picker_description);
         mSelectMinutes = res.getString(R.string.select_minutes);
-        mSelectedColor = res.getColor(mThemeDark ? R.color.red : R.color.red);
-        mUnselectedColor = res.getColor(mThemeDark ? R.color.white : R.color.numbers_text_color);
+        mSelectedColor = res.getColor(R.color.red);
+        mUnselectedColor = res.getColor(mThemeDark ? R.color.text_primary_dark : R.color.text_primary_light);
 
         mHourView = (TextView) view.findViewById(R.id.hours);
         mHourView.setOnKeyListener(keyboardListener);
@@ -350,29 +359,9 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
 
         // Set the theme at the end so that the initialize()s above don't counteract the theme.
         mTimePicker.setTheme(getActivity().getApplicationContext(), mThemeDark);
-        // Prepare some colors to use.
-        int white = res.getColor(R.color.white);
-        int circleBackground = res.getColor(R.color.circle_background);
-        int line = res.getColor(R.color.line_background);
-        int timeDisplay = res.getColor(R.color.numbers_text_color);
-        ColorStateList doneTextColor = res.getColorStateList(R.color.done_text_color);
-        int doneBackground = R.drawable.done_background_color;
 
-        int darkGray = res.getColor(R.color.dark_gray);
-        int lightGray = res.getColor(R.color.light_gray);
-        int darkLine = res.getColor(R.color.line_dark);
-        ColorStateList darkDoneTextColor = res.getColorStateList(R.color.done_text_color_dark);
-        int darkDoneBackground = R.drawable.done_background_color_dark;
+        setThemeColors(view, res);
 
-        // Set the colors for each view based on the theme.
-        view.findViewById(R.id.time_display_background).setBackgroundColor(mThemeDark ? darkGray : white);
-        view.findViewById(R.id.time_display).setBackgroundColor(mThemeDark ? darkGray : white);
-        ((TextView) view.findViewById(R.id.separator)).setTextColor(mThemeDark ? white : timeDisplay);
-        ((TextView) view.findViewById(R.id.ampm_label)).setTextColor(mThemeDark ? white : timeDisplay);
-        view.findViewById(R.id.line).setBackgroundColor(mThemeDark ? darkLine : line);
-        mDoneButton.setTextColor(mThemeDark ? darkDoneTextColor : doneTextColor);
-        mTimePicker.setBackgroundColor(mThemeDark ? lightGray : circleBackground);
-        mDoneButton.setBackgroundResource(mThemeDark ? darkDoneBackground : doneBackground);
         return view;
     }
 
@@ -386,6 +375,38 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
     public void onPause() {
         super.onPause();
         mHapticFeedbackController.stop();
+    }
+
+    private void setThemeColors(View view, Resources res) {
+        // Prepare light and dark colors.
+        int line = res.getColor(R.color.line_background);
+        int textPrimary = res.getColor(R.color.text_primary_light);
+        int timeDisplay = res.getColor(R.color.numbers_text_color);
+        int doneBackground = R.drawable.done_background_color;
+        int doneRipple = R.drawable.done_background_ripple;
+
+        int darkLine = res.getColor(R.color.line_dark);
+        int textPrimaryDark = res.getColor(R.color.text_primary_dark);
+        int timeDisplayDark = res.getColor(R.color.numbers_text_color_dark);
+        int darkDoneBackground = R.drawable.done_background_color_dark;
+        int darkDoneRipple = R.drawable.done_background_ripple_dark;
+
+        // Set transparent backgrounds to optimize overdraw.
+        view.findViewById(R.id.time_display_background).setBackgroundColor(Color.TRANSPARENT);
+        view.findViewById(R.id.time_display).setBackgroundColor(Color.TRANSPARENT);
+        mTimePicker.setBackgroundColor(Color.TRANSPARENT);
+        mContainer.setBackgroundColor(Color.TRANSPARENT);
+
+        // Set the colors for each view based on the theme.
+        ((TextView) view.findViewById(R.id.separator)).setTextColor(mThemeDark ? textPrimaryDark : textPrimary);
+        ((TextView) view.findViewById(R.id.ampm_label)).setTextColor(mThemeDark ? timeDisplayDark : timeDisplay);
+        view.findViewById(R.id.line).setBackgroundColor(mThemeDark ? darkLine : line);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mDoneButton.setBackgroundResource(mThemeDark ? darkDoneRipple : doneRipple);
+        } else {
+            mDoneButton.setBackgroundResource(mThemeDark ? darkDoneBackground : doneBackground);
+        }
     }
 
     public void tryVibrate() {

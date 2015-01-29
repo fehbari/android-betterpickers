@@ -88,7 +88,7 @@ public class RadialTextsView extends View {
         }
 
         // Set up the paint.
-        int numbersTextColor = res.getColor(R.color.numbers_text_color);
+        int numbersTextColor = res.getColor(R.color.text_secondary_light);
         mPaint.setColor(numbersTextColor);
         String typefaceFamily = res.getString(R.string.radial_numbers_typeface);
         mTypefaceLight = Typeface.create(typefaceFamily, Typeface.NORMAL);
@@ -148,9 +148,9 @@ public class RadialTextsView extends View {
         Resources res = context.getResources();
         int textColor;
         if (themeDark) {
-            textColor = res.getColor(R.color.white);
+            textColor = res.getColor(R.color.text_secondary_dark);
         } else {
-            textColor = res.getColor(R.color.numbers_text_color);
+            textColor = res.getColor(R.color.text_secondary_light);
         }
         mPaint.setColor(textColor);
     }

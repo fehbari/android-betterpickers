@@ -21,5 +21,4 @@
     android:gravity="center"
     android:importantForAccessibility="no"
     android:includeFontPadding="false"
-    android:textColor="@color/white"
     android:textSize="@dimen/date_picker_header_text_size" />

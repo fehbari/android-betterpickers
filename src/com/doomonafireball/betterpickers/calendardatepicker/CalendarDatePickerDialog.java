@@ -20,7 +20,8 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateUtils;
@@ -181,12 +182,11 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     public void onStart() {
         super.onStart();
 
-        // Remove background dim effect.
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-
-        // Change animation.
+        getDialog().getWindow().getAttributes().dimAmount = mThemeDark ? 0.4f : 0.2f;
         getDialog().getWindow().setWindowAnimations(R.style.dialog_animation_fade);
+
+        int background = mThemeDark ? R.drawable.dialog_dark : R.drawable.dialog_light;
+        getDialog().getWindow().setBackgroundDrawableResource(background);
     }
 
     @Override
@@ -260,7 +260,7 @@ public class CalendarDatePickerDialog extends DialogFragment implements
         animation2.setDuration(ANIMATION_DURATION);
         mAnimator.setOutAnimation(animation2);
 
-        mDoneButton = (Button) view.findViewById(R.id.done);
+        mDoneButton = (Button) view.findViewById(R.id.done_button);
         mDoneButton.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -313,37 +313,42 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     }
 
     private void setThemeColors(View view, Resources res) {
-        // Set colors according to theme.
-        int white = res.getColor(R.color.white);
+        // Prepare light and dark colors.
         int circleBackground = res.getColor(R.color.circle_background);
         int line = res.getColor(R.color.line_background);
-        ColorStateList doneTextColor = res.getColorStateList(R.color.done_text_color);
         int doneBackground = R.drawable.done_background_color;
+        int doneRipple = R.drawable.done_background_ripple;
         int lightTextColor = res.getColor(R.color.date_picker_text_normal);
         ColorStateList lightSelector = res.getColorStateList(R.color.date_picker_selector);
         ColorStateList lightYearSelector = res.getColorStateList(R.color.date_picker_year_selector);
 
-        int darkGray = res.getColor(R.color.dark_gray);
-        int lightGray = res.getColor(R.color.light_gray);
+        int circleBackgroundDark = res.getColor(R.color.circle_background_dark);
         int darkLine = res.getColor(R.color.line_dark);
-        ColorStateList darkDoneTextColor = res.getColorStateList(R.color.done_text_color_dark);
         int darkDoneBackground = R.drawable.done_background_color_dark;
+        int darkDoneRipple = R.drawable.done_background_ripple_dark;
+        int darkTextColor = res.getColor(R.color.date_picker_text_dark);
         ColorStateList darkSelector = res.getColorStateList(R.color.date_picker_selector_dark);
         ColorStateList darkYearSelector = res.getColorStateList(R.color.date_picker_year_selector_dark);
 
-        mDayOfWeekView.setBackgroundColor(mThemeDark ? lightGray : circleBackground);
-        mDayOfWeekView.setTextColor(mThemeDark ? white : lightTextColor);
+        // Set transparent backgrounds to optimize overdraw.
+        mDayOfWeekView.setBackgroundColor(Color.TRANSPARENT);
+        mDayPickerView.setBackgroundColor(Color.TRANSPARENT);
+        mYearPickerView.setBackgroundColor(Color.TRANSPARENT);
+        view.findViewById(R.id.animator).setBackgroundColor(Color.TRANSPARENT);
+
+        // Set the colors for each view based on the theme.
+        mDayOfWeekView.setTextColor(mThemeDark ? darkTextColor : lightTextColor);
         mSelectedDayTextView.setTextColor(mThemeDark ? darkSelector : lightSelector);
         mSelectedMonthTextView.setTextColor(mThemeDark ? darkSelector : lightSelector);
         mYearView.setTextColor(mThemeDark ? darkYearSelector : lightYearSelector);
-
-        mDayPickerView.setBackgroundColor(mThemeDark ? lightGray : circleBackground);
-        mYearPickerView.setBackgroundColor(mThemeDark ? lightGray : circleBackground);
-        view.findViewById(R.id.day_picker_selected_date_layout).setBackgroundColor(mThemeDark ? darkGray : white);
-        view.findViewById(R.id.animator).setBackgroundColor(mThemeDark ? lightGray : circleBackground);
+        view.findViewById(R.id.day_picker_selected_date_layout).setBackgroundColor(mThemeDark ? circleBackgroundDark : circleBackground);
         view.findViewById(R.id.line).setBackgroundColor(mThemeDark ? darkLine : line);
-        mDoneButton.setTextColor(mThemeDark ? darkDoneTextColor : doneTextColor);
-        mDoneButton.setBackgroundResource(mThemeDark ? darkDoneBackground : doneBackground);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mDoneButton.setBackgroundResource(mThemeDark ? darkDoneRipple : doneRipple);
+        } else {
+            mDoneButton.setBackgroundResource(mThemeDark ? darkDoneBackground : doneBackground);
+        }
 
         mDayPickerView.getAdapter().setThemeDark(mThemeDark);
         mYearPickerView.setThemeDark(mThemeDark);

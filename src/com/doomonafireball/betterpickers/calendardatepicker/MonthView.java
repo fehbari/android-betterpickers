@@ -30,7 +30,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v4.widget.ExploreByTouchHelper;
 import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.MotionEvent;
 import android.view.View;
@@ -42,6 +41,7 @@ import com.doomonafireball.betterpickers.Utils;
 import com.doomonafireball.betterpickers.calendardatepicker.MonthAdapter.CalendarDay;
 
 import java.security.InvalidParameterException;
+import java.text.Normalizer;
 import java.util.Calendar;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -97,6 +97,14 @@ public abstract class MonthView extends View {
      * If this month should display week numbers. false if 0, true otherwise.
      */
     public static final String VIEW_PARAMS_SHOW_WK_NUM = "show_wk_num";
+    /**
+     * Separator for month and year view.
+     */
+    public static final String MONTH_YEAR_SEPARATOR = " ";
+    /**
+     * Pattern for string normalization.
+     */
+    public static final String NORMALIZER_FORMAT = "[^\\p{ASCII}]";
 
     protected static int DEFAULT_HEIGHT = 32;
     protected static int MIN_HEIGHT = 10;
@@ -107,8 +115,6 @@ public abstract class MonthView extends View {
     protected static final int DEFAULT_FOCUS_MONTH = -1;
     protected static final int DEFAULT_NUM_ROWS = 6;
     protected static final int MAX_NUM_ROWS = 6;
-
-    private static final int SELECTED_CIRCLE_ALPHA = 60;
 
     protected static int DAY_SEPARATOR_WIDTH = 1;
     protected static int MINI_DAY_NUMBER_TEXT_SIZE;
@@ -181,6 +187,7 @@ public abstract class MonthView extends View {
     protected int mTodayNumberColor;
     protected int mMonthTitleColor;
     protected int mMonthTitleBGColor;
+    protected int mSelectedDayTextColor;
 
     public MonthView(Context context) {
         super(context);
@@ -195,8 +202,9 @@ public abstract class MonthView extends View {
 
         mDayTextColor = res.getColor(R.color.date_picker_text_normal);
         mTodayNumberColor = res.getColor(R.color.red);
-        mMonthTitleColor = res.getColor(R.color.white);
+        mMonthTitleColor = res.getColor(R.color.text_secondary_light);
         mMonthTitleBGColor = res.getColor(R.color.circle_background);
+        mSelectedDayTextColor = res.getColor(R.color.selected_day_text_color);
 
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
@@ -280,7 +288,6 @@ public abstract class MonthView extends View {
         mSelectedCirclePaint.setColor(mTodayNumberColor);
         mSelectedCirclePaint.setTextAlign(Align.CENTER);
         mSelectedCirclePaint.setStyle(Style.FILL);
-        mSelectedCirclePaint.setAlpha(SELECTED_CIRCLE_ALPHA);
 
         mMonthDayLabelPaint = new Paint();
         mMonthDayLabelPaint.setAntiAlias(true);
@@ -400,12 +407,9 @@ public abstract class MonthView extends View {
     }
 
     private String getMonthAndYearString() {
-        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                | DateUtils.FORMAT_NO_MONTH_DAY;
-        mStringBuilder.setLength(0);
-        long millis = mCalendar.getTimeInMillis();
-        return DateUtils.formatDateRange(getContext(), mFormatter, millis, millis, flags,
-                Time.getCurrentTimezone()).toString();
+        String month = mCalendar.getDisplayName(Calendar.MONTH, Calendar.SHORT,
+                Locale.getDefault()).toUpperCase(Locale.getDefault());
+        return month + MONTH_YEAR_SEPARATOR + mCalendar.get(Calendar.YEAR);
     }
 
     private void drawMonthTitle(Canvas canvas) {
@@ -422,10 +426,12 @@ public abstract class MonthView extends View {
             int calendarDay = (i + mWeekStart) % mNumDays;
             int x = (2 * i + 1) * dayWidthHalf + mPadding;
             mDayLabelCalendar.set(Calendar.DAY_OF_WEEK, calendarDay);
-            canvas.drawText(mDayLabelCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT,
-                            Locale.getDefault()).toUpperCase(Locale.getDefault()), x, y,
-                    mMonthDayLabelPaint
-            );
+
+            String day = mDayLabelCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT,
+                    Locale.getDefault()).toUpperCase(Locale.getDefault());
+            day = Normalizer.normalize(day, Normalizer.Form.NFD).replaceAll(NORMALIZER_FORMAT, "");
+
+            canvas.drawText(day, x, y, mMonthDayLabelPaint);
         }
     }
 

@@ -16,17 +16,17 @@
 
 package com.doomonafireball.betterpickers.radialtimepicker;
 
-import com.doomonafireball.betterpickers.R;
-import com.doomonafireball.betterpickers.Utils;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.View;
+
+import com.doomonafireball.betterpickers.R;
 
 import java.text.DateFormatSymbols;
 
@@ -37,15 +37,14 @@ public class AmPmCirclesView extends View {
 
     private static final String TAG = "AmPmCirclesView";
 
-    // Alpha level for selected circle.
-    private static final int SELECTED_ALPHA = Utils.SELECTED_ALPHA;
-    private static final int SELECTED_ALPHA_THEME_DARK = Utils.SELECTED_ALPHA_THEME_DARK;
-
     private final Paint mPaint = new Paint();
-    private int mSelectedAlpha;
+    private final Paint mAmTextPaint = new Paint();
+    private final Paint mPmTextPaint = new Paint();
+
     private int mUnselectedColor;
     private int mAmPmTextColor;
     private int mSelectedColor;
+    private int mAmPmSelectedTextColor;
     private float mCircleRadiusMultiplier;
     private float mAmPmCircleRadiusMultiplier;
     private String mAmText;
@@ -75,15 +74,26 @@ public class AmPmCirclesView extends View {
         }
 
         Resources res = context.getResources();
-        mUnselectedColor = res.getColor(R.color.white);
+        mUnselectedColor = res.getColor(R.color.background);
         mSelectedColor = res.getColor(R.color.red);
         mAmPmTextColor = res.getColor(R.color.ampm_text_color);
-        mSelectedAlpha = SELECTED_ALPHA;
+        mAmPmSelectedTextColor = Color.WHITE;
+
         String typefaceFamily = res.getString(R.string.sans_serif);
         Typeface tf = Typeface.create(typefaceFamily, Typeface.NORMAL);
+
         mPaint.setTypeface(tf);
         mPaint.setAntiAlias(true);
         mPaint.setTextAlign(Align.CENTER);
+//        mPaint.setStrokeWidth(3);
+
+        mAmTextPaint.setTypeface(tf);
+        mAmTextPaint.setAntiAlias(true);
+        mAmTextPaint.setTextAlign(Align.CENTER);
+
+        mPmTextPaint.setTypeface(tf);
+        mPmTextPaint.setAntiAlias(true);
+        mPmTextPaint.setTextAlign(Align.CENTER);
 
         mCircleRadiusMultiplier =
                 Float.parseFloat(res.getString(R.string.circle_radius_multiplier));
@@ -99,18 +109,16 @@ public class AmPmCirclesView extends View {
         mIsInitialized = true;
     }
 
-    /* package */ void setTheme(Context context, boolean themeDark) {
+    void setTheme(Context context, boolean themeDark) {
         Resources res = context.getResources();
         if (themeDark) {
-            mUnselectedColor = res.getColor(R.color.dark_gray);
+            mUnselectedColor = Color.TRANSPARENT;
             mSelectedColor = res.getColor(R.color.red);
-            mAmPmTextColor = res.getColor(R.color.white);
-            mSelectedAlpha = SELECTED_ALPHA_THEME_DARK;
+            mAmPmTextColor = res.getColor(R.color.text_secondary_dark);
         } else {
-            mUnselectedColor = res.getColor(R.color.white);
+            mUnselectedColor = Color.TRANSPARENT;
             mSelectedColor = res.getColor(R.color.red);
-            mAmPmTextColor = res.getColor(R.color.ampm_text_color);
-            mSelectedAlpha = SELECTED_ALPHA;
+            mAmPmTextColor = res.getColor(R.color.text_secondary_light);
         }
     }
 
@@ -163,7 +171,8 @@ public class AmPmCirclesView extends View {
             mAmPmCircleRadius = (int) (circleRadius * mAmPmCircleRadiusMultiplier);
             int textSize = mAmPmCircleRadius * 3 / 4;
             mPaint.setTextSize(textSize);
-
+            mAmTextPaint.setTextSize(textSize);
+            mPmTextPaint.setTextSize(textSize);
             // Line up the vertical center of the AM/PM circles with the bottom of the main circle.
             mAmPmYCenter = layoutYCenter - mAmPmCircleRadius / 2 + circleRadius;
             // Line up the horizontal edges of the AM/PM circles with the horizontal edges
@@ -174,39 +183,41 @@ public class AmPmCirclesView extends View {
             mDrawValuesReady = true;
         }
 
+
         // We'll need to draw either a lighter blue (for selection), a darker blue (for touching)
         // or white (for not selected).
         int amColor = mUnselectedColor;
-        int amAlpha = 255;
         int pmColor = mUnselectedColor;
-        int pmAlpha = 255;
+        mAmTextPaint.setColor(mAmPmTextColor);
+        mPmTextPaint.setColor(mAmPmTextColor);
+
         if (mAmOrPm == AM) {
             amColor = mSelectedColor;
-            amAlpha = mSelectedAlpha;
+            mAmTextPaint.setColor(mAmPmSelectedTextColor);
         } else if (mAmOrPm == PM) {
             pmColor = mSelectedColor;
-            pmAlpha = mSelectedAlpha;
+            mPmTextPaint.setColor(mAmPmSelectedTextColor);
         }
         if (mAmOrPmPressed == AM) {
             amColor = mSelectedColor;
-            amAlpha = mSelectedAlpha;
+            mAmTextPaint.setColor(mAmPmSelectedTextColor);
         } else if (mAmOrPmPressed == PM) {
             pmColor = mSelectedColor;
-            pmAlpha = mSelectedAlpha;
+            mPmTextPaint.setColor(mAmPmSelectedTextColor);
         }
 
         // Draw the two circles.
         mPaint.setColor(amColor);
-        mPaint.setAlpha(amAlpha);
+//        mPaint.setStyle(amColor == mUnselectedColor ? Paint.Style.STROKE : Paint.Style.FILL_AND_STROKE);
         canvas.drawCircle(mAmXCenter, mAmPmYCenter, mAmPmCircleRadius, mPaint);
+
         mPaint.setColor(pmColor);
-        mPaint.setAlpha(pmAlpha);
+//        mPaint.setStyle(pmColor == mUnselectedColor ? Paint.Style.STROKE : Paint.Style.FILL_AND_STROKE);
         canvas.drawCircle(mPmXCenter, mAmPmYCenter, mAmPmCircleRadius, mPaint);
 
         // Draw the AM/PM texts on top.
-        mPaint.setColor(mAmPmTextColor);
         int textYCenter = mAmPmYCenter - (int) (mPaint.descent() + mPaint.ascent()) / 2;
-        canvas.drawText(mAmText, mAmXCenter, textYCenter, mPaint);
-        canvas.drawText(mPmText, mPmXCenter, textYCenter, mPaint);
+        canvas.drawText(mAmText, mAmXCenter, textYCenter, mAmTextPaint);
+        canvas.drawText(mPmText, mPmXCenter, textYCenter, mPmTextPaint);
     }
 }

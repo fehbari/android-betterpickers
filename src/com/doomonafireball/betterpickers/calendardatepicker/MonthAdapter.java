@@ -169,10 +169,10 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
             v = createMonthView(mContext);
 
             // Set colors according to theme.
-            int white = mContext.getResources().getColor(R.color.white);
+            int darkTextColor = mContext.getResources().getColor(R.color.date_picker_text_dark);
             int lightTextColor = mContext.getResources().getColor(R.color.date_picker_text_normal);
 
-            v.setDayTextColor(mThemeDark ? white : lightTextColor);
+            v.setDayTextColor(mThemeDark ? darkTextColor : lightTextColor);
 
             v.init();
 

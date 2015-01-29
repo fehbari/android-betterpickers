@@ -15,6 +15,7 @@
     <dimen name="tablet_dialpad_font_size">60sp</dimen>
     <dimen name="tablet_dialpad_font_size_ampm">30sp</dimen>
     <dimen name="date_viewpager_height">275dip</dimen>
+    <dimen name="date_picker_padding_top">12dp</dimen>
 
     <!-- From AOSP -->
     <item name="circle_radius_multiplier" format="float" type="string">0.82</item>
