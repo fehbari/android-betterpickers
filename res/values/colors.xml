@@ -20,7 +20,7 @@
     <color name="line_background">#E0E0E0</color>
     <color name="ampm_text_color">#8c8c8c</color>
     <color name="done_text_color_normal">@color/text_primary_light</color>
-    <color name="text_primary_light">#1F1F1F</color>
+    <color name="text_primary_light">#1B1E23</color>
     <color name="text_secondary_light">#676767</color>
     <color name="date_picker_text_normal">@color/text_secondary_light</color>
     <color name="numbers_text_color">@color/text_secondary_light</color>
