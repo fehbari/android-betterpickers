@@ -185,7 +185,7 @@ public class CalendarDatePickerDialog extends DialogFragment implements
         getDialog().getWindow().getAttributes().dimAmount = mThemeDark ? 0.4f : 0.2f;
         getDialog().getWindow().setWindowAnimations(R.style.dialog_animation_fade);
 
-        int background = mThemeDark ? R.drawable.dialog_dark : R.drawable.dialog_light;
+        int background = mThemeDark ? R.drawable.bp_dialog_dark : R.drawable.bp_dialog_light;
         getDialog().getWindow().setBackgroundDrawableResource(background);
     }
 
