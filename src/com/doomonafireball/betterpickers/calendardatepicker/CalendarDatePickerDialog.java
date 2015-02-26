@@ -331,18 +331,22 @@ public class CalendarDatePickerDialog extends DialogFragment implements
         ColorStateList darkYearSelector = res.getColorStateList(R.color.date_picker_year_selector_dark);
 
         // Set transparent backgrounds to optimize overdraw.
-        mDayOfWeekView.setBackgroundColor(Color.TRANSPARENT);
         mDayPickerView.setBackgroundColor(Color.TRANSPARENT);
         mYearPickerView.setBackgroundColor(Color.TRANSPARENT);
         view.findViewById(R.id.animator).setBackgroundColor(Color.TRANSPARENT);
 
         // Set the colors for each view based on the theme.
-        mDayOfWeekView.setTextColor(mThemeDark ? darkTextColor : lightTextColor);
         mSelectedDayTextView.setTextColor(mThemeDark ? darkSelector : lightSelector);
         mSelectedMonthTextView.setTextColor(mThemeDark ? darkSelector : lightSelector);
         mYearView.setTextColor(mThemeDark ? darkYearSelector : lightYearSelector);
         view.findViewById(R.id.day_picker_selected_date_layout).setBackgroundColor(mThemeDark ? circleBackgroundDark : circleBackground);
         view.findViewById(R.id.line).setBackgroundColor(mThemeDark ? darkLine : line);
+
+        // Set colors of day of week view when it exists.
+        if (mDayOfWeekView != null) {
+            mDayOfWeekView.setBackgroundColor(Color.TRANSPARENT);
+            mDayOfWeekView.setTextColor(mThemeDark ? darkTextColor : lightTextColor);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mDoneButton.setBackgroundResource(mThemeDark ? darkDoneRipple : doneRipple);
