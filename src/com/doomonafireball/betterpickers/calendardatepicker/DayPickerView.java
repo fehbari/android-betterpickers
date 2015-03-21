@@ -16,10 +16,6 @@
 
 package com.doomonafireball.betterpickers.calendardatepicker;
 
-import com.doomonafireball.betterpickers.Utils;
-import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog.OnDateChangedListener;
-import com.doomonafireball.betterpickers.calendardatepicker.MonthAdapter.CalendarDay;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
@@ -34,6 +30,10 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
+
+import com.doomonafireball.betterpickers.Utils;
+import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog.OnDateChangedListener;
+import com.doomonafireball.betterpickers.calendardatepicker.MonthAdapter.CalendarDay;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -91,18 +91,21 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
     private CalendarDatePickerController mController;
     private boolean mPerformingScroll;
 
+    private Calendar mStartDate = Calendar.getInstance();
+
     public DayPickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public DayPickerView(Context context, CalendarDatePickerController controller) {
+    public DayPickerView(Context context, CalendarDatePickerController controller, Calendar startDate) {
         super(context);
         init(context);
-        setController(controller);
+        setController(controller, startDate);
     }
 
-    public void setController(CalendarDatePickerController controller) {
+    public void setController(CalendarDatePickerController controller, Calendar startDate) {
+        mStartDate = startDate;
         mController = controller;
         mController.registerOnDateChangedListener(this);
         refreshAdapter();
@@ -128,7 +131,7 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
      */
     protected void refreshAdapter() {
         if (mAdapter == null) {
-            mAdapter = createMonthAdapter(getContext(), mController);
+            mAdapter = createMonthAdapter(getContext(), mController, mStartDate);
         } else {
             mAdapter.setSelectedDay(mSelectedDay);
         }
@@ -137,7 +140,7 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
     }
 
     public abstract MonthAdapter createMonthAdapter(Context context,
-            CalendarDatePickerController controller);
+                                                    CalendarDatePickerController controller, Calendar startDate);
 
     /*
      * Sets all the required fields for the list view. Override this method to
@@ -167,8 +170,7 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
      * the first of the month containing the time is at the top of the view. If the new time is already in view the list
      * will not be scrolled unless forceScroll is true. This time may optionally be highlighted as selected as well.
      *
-     * @param time The time to move to
-     * @param animate Whether to scroll to the given time or just redraw at the new location
+     * @param animate     Whether to scroll to the given time or just redraw at the new location
      * @param setSelected Whether to set the given time as selected
      * @param forceScroll Whether to recenter even if the time is already visible
      * @return Whether or not the view animated to the new location
@@ -286,7 +288,7 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
         /**
          * Sets up the runnable with a short delay in case the scroll state immediately changes again.
          *
-         * @param view The list view that changed state
+         * @param view        The list view that changed state
          * @param scrollState The new state it changed to
          */
         public void doScrollStateChange(AbsListView view, int scrollState) {

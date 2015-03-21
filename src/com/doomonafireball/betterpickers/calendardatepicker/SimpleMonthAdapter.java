@@ -18,13 +18,15 @@ package com.doomonafireball.betterpickers.calendardatepicker;
 
 import android.content.Context;
 
+import java.util.Calendar;
+
 /**
  * An adapter for a list of {@link SimpleMonthView} items.
  */
 public class SimpleMonthAdapter extends MonthAdapter {
 
-    public SimpleMonthAdapter(Context context, CalendarDatePickerController controller) {
-        super(context, controller);
+    public SimpleMonthAdapter(Context context, CalendarDatePickerController controller, Calendar startDate) {
+        super(context, controller, startDate);
     }
 
     @Override

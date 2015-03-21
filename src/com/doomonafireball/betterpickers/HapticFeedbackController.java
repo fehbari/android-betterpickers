@@ -7,11 +7,14 @@ import android.net.Uri;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.view.HapticFeedbackConstants;
+import android.view.View;
 
 /**
  * A simple utility class to handle haptic feedback.
  */
 public class HapticFeedbackController {
+
     private static final int VIBRATE_DELAY_MS = 125;
     private static final int VIBRATE_LENGTH_MS = 5;
 
@@ -71,4 +74,16 @@ public class HapticFeedbackController {
             }
         }
     }
+
+    /**
+     * Performs a long press vibration.
+     *
+     * @param v View to perform vibration for.
+     */
+    public void tryLongPressVibrate(View v) {
+        if (v != null) {
+            v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+        }
+    }
+
 }

@@ -46,6 +46,7 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
     protected static final int MONTHS_IN_YEAR = 12;
 
     private boolean mThemeDark;
+    private boolean mAdjustTime;
 
     /**
      * A convenience class to represent a specific date.
@@ -107,10 +108,10 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
         }
     }
 
-    public MonthAdapter(Context context, CalendarDatePickerController controller) {
+    public MonthAdapter(Context context, CalendarDatePickerController controller, Calendar startDate) {
         mContext = context;
         mController = controller;
-        init();
+        init(startDate);
         setSelectedDay(mController.getSelectedDay());
     }
 
@@ -131,8 +132,8 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
     /**
      * Set up the gesture detector and selected time
      */
-    protected void init() {
-        mSelectedDay = new CalendarDay(System.currentTimeMillis());
+    protected void init(Calendar startDate) {
+        mSelectedDay = new CalendarDay(startDate.getTimeInMillis());
     }
 
     @Override
@@ -207,6 +208,12 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
         v.setMonthParams(drawingParams);
         v.invalidate();
 
+        // HACK: Adjust time after refresh, so the selected day is highlighted.
+        if (mAdjustTime) {
+            mController.onDayOfMonthSelected(mSelectedDay.year, mSelectedDay.month, mSelectedDay.day, true);
+            mAdjustTime = false;
+        }
+
         return v;
     }
 
@@ -216,11 +223,17 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
         return mSelectedDay.year == year && mSelectedDay.month == month;
     }
 
-
     @Override
     public void onDayClick(MonthView view, CalendarDay day) {
         if (day != null) {
             onDayTapped(day);
+        }
+    }
+
+    @Override
+    public void onDayLongClick(MonthView view, CalendarDay day) {
+        if (day != null) {
+            onDayLongTapped(day);
         }
     }
 
@@ -231,7 +244,18 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
      */
     protected void onDayTapped(CalendarDay day) {
         mController.tryVibrate();
-        mController.onDayOfMonthSelected(day.year, day.month, day.day);
+        setSelectedDay(day);
+        mController.onDayOfMonthSelected(day.year, day.month, day.day, false);
+    }
+
+    /**
+     * Moves the day to the tapped day and adjusts the time.
+     *
+     * @param day The day that was tapped
+     */
+    protected void onDayLongTapped(CalendarDay day) {
+        mAdjustTime = true;
+        mController.tryLongPressVibrate();
         setSelectedDay(day);
     }
 

@@ -33,6 +33,7 @@ import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -115,6 +116,7 @@ public abstract class MonthView extends View {
     protected static final int DEFAULT_FOCUS_MONTH = -1;
     protected static final int DEFAULT_NUM_ROWS = 6;
     protected static final int MAX_NUM_ROWS = 6;
+    protected static final int TOUCH_SLOP = 10;
 
     protected static int DAY_SEPARATOR_WIDTH = 1;
     protected static int MINI_DAY_NUMBER_TEXT_SIZE;
@@ -189,6 +191,11 @@ public abstract class MonthView extends View {
     protected int mMonthTitleBGColor;
     protected int mSelectedDayTextColor;
 
+    private int mDownY = -1;
+    private int mDownX = -1;
+
+    private Runnable mPendingCheckForLongPress;
+
     public MonthView(Context context) {
         super(context);
 
@@ -252,10 +259,49 @@ public abstract class MonthView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mDownX = (int) event.getX();
+                mDownY = (int) event.getY();
+
+                if (mPendingCheckForLongPress == null) {
+                    mPendingCheckForLongPress = new Runnable() {
+                        public void run() {
+                            int day = getDayFromLocation(mDownX, mDownY);
+
+                            // View was long pressed.
+                            if (day >= 0) {
+                                onDayLongClick(day);
+                            }
+                        }
+                    };
+                }
+
+                postDelayed(mPendingCheckForLongPress, ViewConfiguration.getLongPressTimeout());
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                float deltaModeX = Math.abs(event.getX() - mDownX);
+                float deltaModeY = Math.abs(event.getY() - mDownY);
+
+                // Be lenient about moving finger.
+                if (deltaModeX > TOUCH_SLOP || deltaModeY > TOUCH_SLOP) {
+                    if (mPendingCheckForLongPress != null) {
+                        removeCallbacks(mPendingCheckForLongPress);
+                    }
+                }
+                break;
+
             case MotionEvent.ACTION_UP:
-                final int day = getDayFromLocation(event.getX(), event.getY());
+                int day = getDayFromLocation(event.getX(), event.getY());
+
+                // View was tapped.
                 if (day >= 0) {
                     onDayClick(day);
+                }
+
+                // Remove the long press check.
+                if (mPendingCheckForLongPress != null) {
+                    removeCallbacks(mPendingCheckForLongPress);
                 }
                 break;
         }
@@ -527,6 +573,20 @@ public abstract class MonthView extends View {
     }
 
     /**
+     * Called when the user long clicks on a day.
+     *
+     * @param day The day that was clicked
+     */
+    private void onDayLongClick(int day) {
+        if (mOnDayClickListener != null) {
+            mOnDayClickListener.onDayLongClick(this, new CalendarDay(mYear, mMonth, day));
+        }
+
+        // This is a no-op if accessibility is turned off.
+        mTouchHelper.sendEventForVirtualView(day, AccessibilityEvent.TYPE_VIEW_LONG_CLICKED);
+    }
+
+    /**
      * @return The date that has accessibility focus, or {@code null} if no date has focus
      */
     public CalendarDay getAccessibilityFocus() {
@@ -630,6 +690,9 @@ public abstract class MonthView extends View {
                 case AccessibilityNodeInfo.ACTION_CLICK:
                     onDayClick(virtualViewId);
                     return true;
+                case AccessibilityNodeInfo.ACTION_LONG_CLICK:
+                    onDayLongClick(virtualViewId);
+                    return true;
             }
 
             return false;
@@ -681,6 +744,8 @@ public abstract class MonthView extends View {
     public interface OnDayClickListener {
 
         public void onDayClick(MonthView view, CalendarDay day);
+
+        public void onDayLongClick(MonthView view, CalendarDay day);
     }
 
     public void setDayTextColor(int color) {

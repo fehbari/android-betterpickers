@@ -26,7 +26,7 @@ interface CalendarDatePickerController {
 
     void onYearSelected(int year);
 
-    void onDayOfMonthSelected(int year, int month, int day);
+    void onDayOfMonthSelected(int year, int month, int day, boolean adjustTime);
 
     void registerOnDateChangedListener(OnDateChangedListener listener);
 
@@ -41,4 +41,6 @@ interface CalendarDatePickerController {
     int getMaxYear();
 
     void tryVibrate();
+
+    void tryLongPressVibrate();
 }

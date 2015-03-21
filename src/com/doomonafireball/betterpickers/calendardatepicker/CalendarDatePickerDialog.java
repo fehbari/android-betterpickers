@@ -81,7 +81,7 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     private static final SimpleDateFormat YEAR_FORMAT = new SimpleDateFormat("yyyy", Locale.getDefault());
     private static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("dd", Locale.getDefault());
 
-    private final Calendar mCalendar = Calendar.getInstance();
+    private Calendar mCalendar = Calendar.getInstance();
     private OnDateSetListener mCallBack;
     private OnDialogDismissListener mDimissCallback;
     private HashSet<OnDateChangedListener> mListeners = new HashSet<OnDateChangedListener>();
@@ -116,6 +116,7 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     private String mSelectYear;
 
     private boolean mThemeDark;
+    private Calendar mStartDate = Calendar.getInstance();
 
     /**
      * The callback used to indicate the user is done filling in the date.
@@ -123,12 +124,12 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     public interface OnDateSetListener {
 
         /**
-         * @param CalendarDatePickerDialog The view associated with this listener.
-         * @param year                     The year that was set.
-         * @param monthOfYear              The month that was set (0-11) for compatibility with {@link java.util.Calendar}.
-         * @param dayOfMonth               The day of the month that was set.
+         * @param dialog      The view associated with this listener.
+         * @param year        The year that was set.
+         * @param monthOfYear The month that was set (0-11) for compatibility with {@link java.util.Calendar}.
+         * @param dayOfMonth  The day of the month that was set.
          */
-        void onDateSet(CalendarDatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth);
+        void onDateSet(CalendarDatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth, boolean adjustTime);
     }
 
     /**
@@ -238,7 +239,7 @@ public class CalendarDatePickerDialog extends DialogFragment implements
         }
 
         final Activity activity = getActivity();
-        mDayPickerView = new SimpleDayPickerView(activity, this);
+        mDayPickerView = new SimpleDayPickerView(activity, this, mStartDate);
         mYearPickerView = new YearPickerView(activity, this);
 
         Resources res = getResources();
@@ -268,7 +269,7 @@ public class CalendarDatePickerDialog extends DialogFragment implements
                 tryVibrate();
                 if (mCallBack != null) {
                     mCallBack.onDateSet(CalendarDatePickerDialog.this, mCalendar.get(Calendar.YEAR),
-                            mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+                            mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH), false);
                 }
                 dismiss();
             }
@@ -488,12 +489,19 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     }
 
     @Override
-    public void onDayOfMonthSelected(int year, int month, int day) {
+    public void onDayOfMonthSelected(int year, int month, int day, boolean adjustTime) {
         mCalendar.set(Calendar.YEAR, year);
         mCalendar.set(Calendar.MONTH, month);
         mCalendar.set(Calendar.DAY_OF_MONTH, day);
         updatePickers();
         updateDisplay(true);
+
+        if (adjustTime && mCallBack != null) {
+            mCallBack.onDateSet(CalendarDatePickerDialog.this, mCalendar.get(Calendar.YEAR),
+                    mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH), true);
+
+            dismiss();
+        }
     }
 
     private void updatePickers() {
@@ -513,6 +521,11 @@ public class CalendarDatePickerDialog extends DialogFragment implements
 
     public void setThemeDark(boolean dark) {
         mThemeDark = dark;
+    }
+
+    public void setStartDate(Calendar startDate) {
+        mStartDate = startDate;
+        mCalendar = startDate;
     }
 
     @Override
@@ -548,6 +561,12 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     @Override
     public void tryVibrate() {
         mHapticFeedbackController.tryVibrate();
+    }
+
+    @Override
+    public void tryLongPressVibrate() {
+        View decorView = getActivity().getWindow().getDecorView();
+        mHapticFeedbackController.tryLongPressVibrate(decorView);
     }
 
     @Override
