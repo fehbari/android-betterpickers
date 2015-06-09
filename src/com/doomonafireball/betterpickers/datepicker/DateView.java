@@ -1,10 +1,5 @@
 package com.doomonafireball.betterpickers.datepicker;
 
-import com.doomonafireball.betterpickers.widget.PickerLinearLayout;
-import com.doomonafireball.betterpickers.R;
-import com.doomonafireball.betterpickers.widget.UnderlinePageIndicatorPicker;
-import com.doomonafireball.betterpickers.widget.ZeroTopPaddingTextView;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -13,6 +8,12 @@ import android.graphics.Typeface;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.doomonafireball.betterpickers.R;
+import com.doomonafireball.betterpickers.util.DateFormats;
+import com.doomonafireball.betterpickers.widget.PickerLinearLayout;
+import com.doomonafireball.betterpickers.widget.UnderlinePageIndicatorPicker;
+import com.doomonafireball.betterpickers.widget.ZeroTopPaddingTextView;
 
 public class DateView extends PickerLinearLayout {
 
@@ -38,7 +39,7 @@ public class DateView extends PickerLinearLayout {
      * Instantiate a DateView
      *
      * @param context the Context in which to inflate the View
-     * @param attrs attributes that define the title color
+     * @param attrs   attributes that define the title color
      */
     public DateView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -93,13 +94,13 @@ public class DateView extends PickerLinearLayout {
         removeAllViews();
         for (int i = 0; i < dateFormatOrder.length; i++) {
             switch (dateFormatOrder[i]) {
-                case DateFormat.DATE:
+                case DateFormats.DATE:
                     addView(mDate);
                     break;
-                case DateFormat.MONTH:
+                case DateFormats.MONTH:
                     addView(mMonth);
                     break;
-                case DateFormat.YEAR:
+                case DateFormats.YEAR:
                     addView(mYearLabel);
                     break;
             }
@@ -124,9 +125,9 @@ public class DateView extends PickerLinearLayout {
     /**
      * Set the date shown
      *
-     * @param month a String representing the month of year
+     * @param month      a String representing the month of year
      * @param dayOfMonth an int representing the day of month
-     * @param year an int representing the year
+     * @param year       an int representing the year
      */
     public void setDate(String month, int dayOfMonth, int year) {
         if (mMonth != null) {

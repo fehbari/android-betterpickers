@@ -1,9 +1,5 @@
 package com.doomonafireball.betterpickers.expirationpicker;
 
-import com.doomonafireball.betterpickers.R;
-import com.doomonafireball.betterpickers.widget.UnderlinePageIndicatorPicker;
-import com.doomonafireball.betterpickers.datepicker.DatePicker;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -22,6 +18,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
+import com.doomonafireball.betterpickers.R;
+import com.doomonafireball.betterpickers.datepicker.DatePicker;
+import com.doomonafireball.betterpickers.util.DateFormats;
+import com.doomonafireball.betterpickers.widget.UnderlinePageIndicatorPicker;
 
 import java.util.Calendar;
 
@@ -80,7 +81,7 @@ public class ExpirationPicker extends LinearLayout implements Button.OnClickList
      * Instantiates an ExpirationPicker object
      *
      * @param context the Context required for creation
-     * @param attrs additional attributes that define custom colors, selectors, and backgrounds.
+     * @param attrs   additional attributes that define custom colors, selectors, and backgrounds.
      */
     public ExpirationPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -222,7 +223,7 @@ public class ExpirationPicker extends LinearLayout implements Button.OnClickList
          * Based on the Locale, inflate the month, or year keyboard
          *
          * @param collection the ViewPager collection group
-         * @param position the position within the ViewPager
+         * @param position   the position within the ViewPager
          * @return an inflated View representing the keyboard for this position
          */
         public Object instantiateItem(ViewGroup collection, int position) {
@@ -543,7 +544,7 @@ public class ExpirationPicker extends LinearLayout implements Button.OnClickList
     /**
      * Set the expiration shown in the date picker
      *
-     * @param year the new year to set
+     * @param year        the new year to set
      * @param monthOfYear the new zero-indexed month to set
      */
     public void setExpiration(int year, int monthOfYear) {
@@ -567,10 +568,10 @@ public class ExpirationPicker extends LinearLayout implements Button.OnClickList
         }
         for (int i = 0; i < mDateFormatOrder.length; i++) {
             char c = mDateFormatOrder[i];
-            if (c == DateFormat.MONTH && monthOfYear == -1) {
+            if (c == DateFormats.MONTH && monthOfYear == -1) {
                 mKeyboardPager.setCurrentItem(i, true);
                 break;
-            } else if (c == DateFormat.YEAR && year <= 0) {
+            } else if (c == DateFormats.YEAR && year <= 0) {
                 mKeyboardPager.setCurrentItem(i, true);
                 break;
             }

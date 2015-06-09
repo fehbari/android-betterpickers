@@ -1,8 +1,5 @@
 package com.doomonafireball.betterpickers.datepicker;
 
-import com.doomonafireball.betterpickers.R;
-import com.doomonafireball.betterpickers.widget.UnderlinePageIndicatorPicker;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -21,6 +18,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.doomonafireball.betterpickers.R;
+import com.doomonafireball.betterpickers.util.DateFormats;
+import com.doomonafireball.betterpickers.widget.UnderlinePageIndicatorPicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -86,7 +87,7 @@ public class DatePicker extends LinearLayout implements Button.OnClickListener,
      * Instantiates a DatePicker object
      *
      * @param context the Context required for creation
-     * @param attrs additional attributes that define custom colors, selectors, and backgrounds.
+     * @param attrs   additional attributes that define custom colors, selectors, and backgrounds.
      */
     public DatePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -239,13 +240,13 @@ public class DatePicker extends LinearLayout implements Button.OnClickListener,
          * Based on the Locale, inflate the day, month, or year keyboard
          *
          * @param collection the ViewPager collection group
-         * @param position the position within the ViewPager
+         * @param position   the position within the ViewPager
          * @return an inflated View representing the keyboard for this position
          */
         public Object instantiateItem(ViewGroup collection, int position) {
             View view;
             Resources res = mContext.getResources();
-            if (mDateFormatOrder[position] == DateFormat.MONTH) {
+            if (mDateFormatOrder[position] == DateFormats.MONTH) {
                 // Months
                 sMonthKeyboardPosition = position;
                 view = mInflater.inflate(R.layout.keyboard_text_with_header, null);
@@ -281,7 +282,7 @@ public class DatePicker extends LinearLayout implements Button.OnClickListener,
                     mMonths[i].setTag(R.id.date_keyboard, KEYBOARD_MONTH);
                     mMonths[i].setTag(R.id.date_month_int, i);
                 }
-            } else if (mDateFormatOrder[position] == DateFormat.DATE) {
+            } else if (mDateFormatOrder[position] == DateFormats.DATE) {
                 // Date
                 sDateKeyboardPosition = position;
                 view = mInflater.inflate(R.layout.keyboard_right_drawable_with_header, null);
@@ -323,7 +324,7 @@ public class DatePicker extends LinearLayout implements Button.OnClickListener,
                 mDateRight.setImageDrawable(res.getDrawable(mCheckDrawableSrcResId));
                 mDateRight.setBackgroundResource(mKeyBackgroundResId);
                 mDateRight.setOnClickListener(DatePicker.this);
-            } else if (mDateFormatOrder[position] == DateFormat.YEAR) {
+            } else if (mDateFormatOrder[position] == DateFormats.YEAR) {
                 // Year
                 sYearKeyboardPosition = position;
                 view = mInflater.inflate(R.layout.keyboard_with_header, null);
@@ -411,12 +412,12 @@ public class DatePicker extends LinearLayout implements Button.OnClickListener,
         if (v == mDelete) {
             // Delete is dependent on which keyboard
             switch (mDateFormatOrder[mKeyboardPager.getCurrentItem()]) {
-                case DateFormat.MONTH:
+                case DateFormats.MONTH:
                     if (mMonthInput != -1) {
                         mMonthInput = -1;
                     }
                     break;
-                case DateFormat.DATE:
+                case DateFormats.DATE:
                     if (mDateInputPointer >= 0) {
                         for (int i = 0; i < mDateInputPointer; i++) {
                             mDateInput[i] = mDateInput[i + 1];
@@ -427,7 +428,7 @@ public class DatePicker extends LinearLayout implements Button.OnClickListener,
                         mKeyboardPager.setCurrentItem(mKeyboardPager.getCurrentItem() - 1, true);
                     }
                     break;
-                case DateFormat.YEAR:
+                case DateFormats.YEAR:
                     if (mYearInputPointer >= 0) {
                         for (int i = 0; i < mYearInputPointer; i++) {
                             mYearInput[i] = mYearInput[i + 1];
@@ -759,9 +760,9 @@ public class DatePicker extends LinearLayout implements Button.OnClickListener,
     /**
      * Set the date shown in the date picker
      *
-     * @param year the new year to set
+     * @param year        the new year to set
      * @param monthOfYear the new zero-indexed month to set
-     * @param dayOfMonth the new day of month to set
+     * @param dayOfMonth  the new day of month to set
      */
     public void setDate(int year, int monthOfYear, int dayOfMonth) {
         mMonthInput = monthOfYear;
@@ -787,13 +788,13 @@ public class DatePicker extends LinearLayout implements Button.OnClickListener,
         }
         for (int i = 0; i < mDateFormatOrder.length; i++) {
             char c = mDateFormatOrder[i];
-            if (c == DateFormat.MONTH && monthOfYear == -1) {
+            if (c == DateFormats.MONTH && monthOfYear == -1) {
                 mKeyboardPager.setCurrentItem(i, true);
                 break;
-            } else if (c == DateFormat.DATE && dayOfMonth <= 0) {
+            } else if (c == DateFormats.DATE && dayOfMonth <= 0) {
                 mKeyboardPager.setCurrentItem(i, true);
                 break;
-            } else if (c == DateFormat.YEAR && year <= 0) {
+            } else if (c == DateFormats.YEAR && year <= 0) {
                 mKeyboardPager.setCurrentItem(i, true);
                 break;
             }
