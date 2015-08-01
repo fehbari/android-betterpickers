@@ -39,6 +39,7 @@ import android.widget.TextView;
 import com.doomonafireball.betterpickers.HapticFeedbackController;
 import com.doomonafireball.betterpickers.R;
 import com.doomonafireball.betterpickers.Utils;
+import com.doomonafireball.betterpickers.handler.SoundHandler;
 import com.doomonafireball.betterpickers.radialtimepicker.RadialPickerLayout.OnValueSelectedListener;
 import com.nineoldandroids.animation.ObjectAnimator;
 
@@ -216,6 +217,8 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
 
         int background = mThemeDark ? R.drawable.bp_dialog_dark : R.drawable.bp_dialog_light;
         getDialog().getWindow().setBackgroundDrawableResource(background);
+
+        SoundHandler.load(getActivity(), R.raw.time_picker);
     }
 
     @Override

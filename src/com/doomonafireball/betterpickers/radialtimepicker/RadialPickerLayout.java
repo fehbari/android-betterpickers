@@ -38,6 +38,7 @@ import android.widget.FrameLayout;
 
 import com.doomonafireball.betterpickers.HapticFeedbackController;
 import com.doomonafireball.betterpickers.R;
+import com.doomonafireball.betterpickers.handler.SoundHandler;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
@@ -660,6 +661,7 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
                         mHapticFeedbackController.tryVibrate();
                         mLastValueSelected = value;
                         mListener.onValueSelected(getCurrentItemShowing(), value, false);
+                        SoundHandler.playSound(getContext());
                     }
                 }
                 return true;
