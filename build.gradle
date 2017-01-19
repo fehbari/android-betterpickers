@@ -1,18 +1,8 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
-    }
-}
-
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion '22.0.1'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     sourceSets {
         main {
@@ -33,6 +23,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:support-v13:22.2.0'
+    compile group: 'com.android.support', name: 'support-v13', version: rootProject.ext.supportLibVersion
     compile 'com.nineoldandroids:library:2.4.0'
 }

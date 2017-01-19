@@ -10,7 +10,7 @@ import android.util.Log;
 /**
  * Handler to deal with in-app sounds.
  *
- * @author Felipe Bari
+ * @author Fernanda Bari
  */
 public class SoundHandler {
 
